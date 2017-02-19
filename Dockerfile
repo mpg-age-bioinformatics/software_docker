@@ -354,6 +354,249 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
 && dpkg -i rstudio-server-1.0.136-amd64.deb \
 && echo "rsession-which-r=$(which R)" >> /etc/rstudio/rserver.conf'
 
+#########################################
+#### Bioinformatics tools start here ####
+#########################################
+
+RUN cd $SOUR && wget -O jre-8.0.111-linux-x64.tar.gz http://javadl.oracle.com/webapps/download/AutoDL?BundleId=216424 && \
+  tar -zxvf jre-8.0.111-linux-x64.tar.gz && \
+  cd jre1.8.0_111 && \
+  mkdir -p $SOFT/java/8.0.111 && \
+  cp -r * $SOFT/java/8.0.111/ && \
+  newmod.sh \
+  -s java \
+  -p $MODF/general/ \
+  -v 8.0.111 \
+  -d 8.0.111
+
+RUN cd $SOUR && \
+  wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.2.9/bowtie2-2.2.9-linux-x86_64.zip && \
+  unzip bowtie2-2.2.9-linux-x86_64.zip && \
+  mkdir -p $SOFT/bowtie/2.2.9/bin && \
+  cp -r bowtie2-2.2.9/* $SOFT/bowtie/2.2.9/ && \
+  mv $SOFT/bowtie/2.2.9/bowti* $SOFT/bowtie/2.2.9/bin/ && \
+  newmod.sh \
+  -s bowtie \
+  -p $MODF/bioinformatics/ \
+  -v 2.2.9 \
+  -d 2.2.9
+
+RUN cd $SOUR && \
+  wget http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.Linux_x86_64.tar.gz && \
+  tar -zxvf cufflinks-2.2.1.Linux_x86_64.tar.gz && \
+  cd cufflinks-2.2.1.Linux_x86_64 && \
+  mkdir -p $SOFT/cufflinks/2.2.1/bin && \
+  cp cuff* g* $SOFT/cufflinks/2.2.1/bin && \
+  newmod.sh \
+  -s cufflinks \
+  -p $MODF/bioinformatics/ \
+  -v 2.2.1 \
+  -d 2.2.1
+
+RUN cd $SOUR && \
+  wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip && \
+  unzip fastqc_v0.11.5.zip && \
+  cd FastQC && \
+  mkdir -p $SOFT/fastqc/0.11.5/bin && \
+  cp -r * $SOFT/fastqc/0.11.5/bin && \
+  chmod 755 $SOFT/fastqc/0.11.5/bin/fastqc && \
+  newmod.sh \
+  -s fastqc \
+  -p $MODF/bioinformatics/ \
+  -v 0.11.5 \
+  -d 0.11.5 && \
+  echo "module load java" >> $MODF/bioinformatics/fastqc/0.11.5
+
+RUN apt-get update && apt-get install libncurses5-dev
+
+RUN cd $SOUR && \
+  wget https://github.com/samtools/samtools/releases/download/1.3.1/samtools-1.3.1.tar.bz2 && \
+  tar -jxvf samtools-1.3.1.tar.bz2 && \
+  cd samtools-1.3.1 && \
+  mkdir -p $SOFT/samtools/1.3.1/bin && \
+  ./configure --prefix=$SOFT/samtools/1.3.1 && \
+  make && make install && \
+  newmod.sh \
+  -s samtools \
+  -p $MODF/bioinformatics/ \
+  -v 1.3.1 \
+  -d 1.3.1
+
+RUN cd $SOUR && \
+  wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.0.4-Linux_x86_64.zip && \
+  unzip hisat2-2.0.4-Linux_x86_64.zip && \
+  cd hisat2-2.0.4 && \
+  mkdir -p $SOFT/hisat/2.0.4/bin && \
+  cp -r * $SOFT/hisat/2.0.4/bin && \
+  newmod.sh \
+  -s hisat \
+  -p $MODF/bioinformatics/ \
+  -v 2.0.4 \
+  -d 2.0.4
+
+RUN cd $SOUR && \
+  wget http://ccb.jhu.edu/software/stringtie/dl/stringtie-1.3.0.Linux_x86_64.tar.gz && \
+  tar -zxvf stringtie-1.3.0.Linux_x86_64.tar.gz && \
+  cd stringtie-1.3.0.Linux_x86_64 && \
+  mkdir -p $SOFT/stringtie/1.3.0/bin && \
+  cp -r * $SOFT/stringtie/1.3.0/bin && \
+  newmod.sh \
+  -s stringtie \
+  -p $MODF/bioinformatics/ \
+  -v 1.3.0 \
+  -d 1.3.0
+
+RUN cd $SOUR && \
+  wget https://github.com/lh3/bwa/archive/v0.7.15.tar.gz && \
+  tar -zxvf v0.7.15.tar.gz && \
+  cd bwa-0.7.15 && \
+  make && \
+  mkdir -p $SOFT/bwa/0.7.15/bin && \
+  cp -r * $SOFT/bwa/0.7.15/bin && \
+  newmod.sh \
+  -s bwa \
+  -p $MODF/bioinformatics/ \
+  -v 0.7.15 \
+  -d 0.7.15
+
+RUN cd $SOUR && \
+  wget https://ccb.jhu.edu/software/tophat/downloads/tophat-2.1.1.Linux_x86_64.tar.gz && \
+  tar -zxvf tophat-2.1.1.Linux_x86_64.tar.gz && \
+  cd tophat-2.1.1.Linux_x86_64 && \
+  mkdir -p $SOFT/tophat/2.1.1/bin && \
+  cp -r * $SOFT/tophat/2.1.1/bin && \
+  newmod.sh \
+  -s tophat \
+  -p $MODF/bioinformatics/ \
+  -v 2.1.1 \
+  -d 2.1.1
+
+RUN cd $SOUR && \
+  wget https://github.com/alexdobin/STAR/archive/2.5.2b.tar.gz && \
+  tar -xzf 2.5.2b.tar.gz && \
+  cd STAR-2.5.2b && \
+  mkdir -p $SOFT/star/2.5.2b/bin && \
+  cp -r bin/Linux_x86_64_static/* $SOFT/star/2.5.2b/bin && \
+  newmod.sh \
+  -s star \
+  -p $MODF/bioinformatics/ \
+  -v 2.5.2b \
+  -d 2.5.2b
+
+RUN cd $SOUR && \
+  wget http://downloads.sourceforge.net/project/skewer/Binaries/skewer-0.2.2-linux-x86_64 && \
+  mkdir -p $SOFT/skewer/0.2.2/bin && \
+  cp skewer-0.2.2-linux-x86_64 $SOFT/skewer/0.2.2/bin/skewer && \
+  chmod 755 $SOFT/skewer/0.2.2/bin/skewer && \
+  newmod.sh \
+  -s skewer \
+  -p $MODF/bioinformatics/ \
+  -v 0.2.2 \
+  -d 0.2.2
+
+RUN cd $SOUR && \
+  wget https://github.com/arq5x/bedtools2/archive/v2.26.0.tar.gz && \
+  tar -zxvf v2.26.0.tar.gz && \
+  cd bedtools2-2.26.0 && \
+  mkdir -p $SOFT/bedtools/2.26.0/ && \
+  make && \
+  cp -r bin $SOFT/bedtools/2.26.0 && \
+  newmod.sh \
+  -s bedtools \
+  -p $MODF/bioinformatics/ \
+  -v 2.26.0 \
+  -d 2.26.0
+
+RUN cd $SOUR && \
+  wget https://github.com/vcftools/vcftools/releases/download/v0.1.14/vcftools-0.1.14.tar.gz && \
+  tar -zxvf vcftools-0.1.14.tar.gz && \
+  cd vcftools-0.1.14 && \
+  mkdir -p $SOFT/vcftools/0.1.14 && \
+  ./configure --prefix=$SOFT/vcftools/0.1.14 && make && make install && \
+  newmod.sh \
+  -s vcftools \
+  -p $MODF/bioinformatics/ \
+  -v 0.1.14 \
+  -d 0.1.14
+
+RUN cd $SOUR && \
+  wget http://data.broadinstitute.org/igv/projects/downloads/igvtools_2.3.89.zip && \
+  unzip igvtools_2.3.89.zip && \
+  cd IGVTools && \
+  mkdir -p $SOFT/igvtools/2.3.89/bin && \
+  cp i* $SOFT/igvtools/2.3.89/bin && \
+  newmod.sh \
+  -s igvtools \
+  -p $MODF/bioinformatics/ \
+  -v 2.3.89 \
+  -d 2.3.89
+
+RUN cd $SOUR && \
+  wget https://github.com/broadinstitute/picard/releases/download/2.8.1/picard.jar && \
+  mkdir -p $SOFT/picard/2.8.1/bin && \
+  cp picard.jar $SOFT/picard/2.8.1/bin/picard.jar && \
+  newmod.sh \
+  -s picard \
+  -p $MODF/bioinformatics/ \
+  -v 2.8.1 \
+  -d 2.8.1 && \
+  echo "module load java" >> $MODF/bioinformatics/picard/2.8.1 && \
+  echo "setenv PICARD $SOFT/picard/2.8.1/bin/picard.jar" >> $MODF/bioinformatics/picard/2.8.1
+
+RUN cd $SOUR && \
+  wget http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.8.1/sratoolkit.2.8.1-centos_linux64.tar.gz && \
+  tar -zxvf sratoolkit.2.8.1-centos_linux64.tar.gz && \
+  mkdir -p $SOFT/sratoolkit/2.8.1/ && \
+  cp -r sratoolkit.2.8.1-centos_linux64/*  $SOFT/sratoolkit/2.8.1/ && \
+  newmod.sh \
+  -s sratoolkit \
+  -p $MODF/bioinformatics/ \
+  -v 2.8.1 \
+  -d 2.8.1
+
+RUN cd $SOUR && wget https://downloads.sourceforge.net/project/snpeff/snpEff_v4_3i_core.zip && \
+  unzip snpEff_v4_3i_core.zip && \
+  mv snpEff snpEff_v4_3i_core && \
+  mkdir -p $SOFT/snpeff/4.3.i/bin && \
+  cp -r snpEff_v4_3i_core/* $SOFT/snpeff/4.3.i/bin && \
+  newmod.sh \
+  -s snpeff \
+  -p $MODF/bioinformatics/ \
+  -v 4.3.i \
+  -d 4.3.i && \
+  echo "module load java" >> $MODF/bioinformatics/snpeff/4.3.i && \
+  echo "setenv SNPEFF $SOFT/snpeff/4.3.i/bin/snpEff.jar" >> $MODF/bioinformatics/snpeff/4.3.i && \
+  echo "setenv SNPSIFT $SOFT/snpeff/4.3.i/bin/SnpSift.jar" >> $MODF/bioinformatics/snpeff/4.3.i
+
+RUN cd $SOUR && wget http://spades.bioinf.spbau.ru/release3.10.0/SPAdes-3.10.0-Linux.tar.gz && \
+  tar -zxvf SPAdes-3.10.0-Linux.tar.gz && \
+  cd SPAdes-3.10.0-Linux && \
+  mkdir -p $SOFT/spades/3.10.0 && \
+  cp -r * $SOFT/spades/3.10.0/ && \
+  newmod.sh \
+  -s spades \
+  -p $MODF/bioinformatics/ \
+  -v 3.10.0 \
+  -d 3.10.0
+
+RUN cd $SOUR && \
+  wget -O GenomeAnalysisTK-3.4-46-gbc02625.tar.bz2 https://datashare.mpcdf.mpg.de/s/gml1aS2HUXfspXW/download && \
+  mkdir -p GenomeAnalysisTK-3.4-46-gbc02625 && \
+  cp GenomeAnalysisTK-3.4-46-gbc02625.tar.bz2 GenomeAnalysisTK-3.4-46-gbc02625/ && \
+  cd GenomeAnalysisTK-3.4-46-gbc02625 && \
+  tar -jxvf GenomeAnalysisTK-3.4-46-gbc02625.tar.bz2 && \
+  mkdir -p $SOFT/gatk/3.4.46/bin && \
+  cp *.jar $SOFT/gatk/3.4.46/bin && \
+  cp -r resources $SOFT/gatk/3.4.46/ && \
+  chmod 755 $SOFT/gatk/3.4.46/bin/* && \
+  newmod.sh \
+  -s gatk \
+  -p $MODF/bioinformatics/ \
+  -v 3.4.46 \
+  -d 3.4.46 && \
+  echo "module load java" >> $MODF/bioinformatics/gatk/3.4.46 && \
+  echo "setenv GATK $SOFT/gatk/3.4.46/bin/GenomeAnalysisTK.jar" >> $MODF/bioinformatics/gatk/3.4.46
+
 
 ##########################
 #### this part to end ####
