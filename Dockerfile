@@ -171,7 +171,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
  LDFLAGS="-L$SOFT/bzip2/1.0.6/lib \
  -L$SOFT/xz/5.2.2/lib \
  -L$SOFT/openblas/0.2.19/lib" \
- --with-x=no --with-cairo=yes --with-libpng=yes \
+ --with-cairo=yes --with-libpng=yes \
  --with-readline --with-tcltk --enable-BLAS-shlib --enable-R-profiling \
  --enable-R-shlib=yes --enable-memory-profiling --with-blas --with-lapack \
 && make && make install \
@@ -617,7 +617,7 @@ COPY jupyter_notebook_config.py /home/$NB_USER/.jupyter/
 USER root
 
 # Folders in home folder that should be kept
-ENV HOFOL ".bash_logout  .bashrc  .jupyter  .profile  .texmf-var .jupyterhub .Rprofile"
+ENV HOFOL ".bash_logout  .bashrc  .jupyter  .profile  .texmf-var .jupyterhub .Rprofile .R"
 
 RUN mkdir -p /home/_mpiage \
 && for f in $HOFOL ; do \
