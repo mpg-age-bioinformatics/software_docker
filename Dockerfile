@@ -1,4 +1,4 @@
-# Copyright (c) Jorge Boucas.
+# Copyright (c) Bioinformatics Core Facility of the Max Planck Institute for Biology of Ageing.
 # Distributed under the terms of the Modified BSD License.
 
 # Debian Jessie 8.7 image available as latest 2017 February 14.
