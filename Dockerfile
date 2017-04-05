@@ -4,7 +4,7 @@
 # Debian Jessie 8.7 image available as latest 2017 February 14.
 FROM debian@sha256:abbe80c8c87b7e1f652fe5e99ff1799cdf9e0878c7009035afe1bccac129cad8
 
-LABEL maintainer "bioinformatics@age.mpg.de
+LABEL maintainer "bioinformatics@age.mpg.de"
 
 USER root
 
