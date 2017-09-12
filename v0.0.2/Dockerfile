@@ -26,7 +26,7 @@ RUN cd $SOUR && wget -O l.zip https://sourceforge.net/projects/lofreq/files/lofr
 ##########################
 
 RUN mkdir -p /Dockerfiles/v0.0.1 /Dockerfiles/v0.0.2
-COPY Dockerfile0.0.1 /Dockerfiles/v0.0.1/Dockerfile
+COPY .Dockerfile.v0.0.1 /Dockerfiles/v0.0.1/Dockerfile
 COPY Dockerfile /Dockerfiles/v0.0.2/
 
 USER $NB_USER
