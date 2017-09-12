@@ -5,7 +5,7 @@ if [[ ! $(docker inspect -f {{.State.Running}} bioinf-container | grep -v "bioin
   then
     docker run -d -p 8787:8787 -p 8888:8888 \
     -v ~/bioinf-container:/home/mpiage --name bioinf-container \
-    -it mpigagebioinformatics/bioinformatics_software:$1
+    -i -t mpgagebioinformatics/bioinformatics_software:$1
     docker exec -i -t bioinf-container /bin/bash
   else
     docker exec -i -t bioinf-container /bin/bash

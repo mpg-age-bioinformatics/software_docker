@@ -597,6 +597,18 @@ RUN cd $SOUR && \
   echo "module load java" >> $MODF/bioinformatics/gatk/3.4.46 && \
   echo "setenv GATK $SOFT/gatk/3.4.46/bin/GenomeAnalysisTK.jar" >> $MODF/bioinformatics/gatk/3.4.46
 
+RUN cd $SOUR && wget -O l.zip https://sourceforge.net/projects/lofreq/files/lofreq_star-2.1.2_linux-x86-64.tgz/download && \
+    mv l.zip lofreq_star-2.1.2_linux-x86-64.tgz && \
+    rm -rf lofreq && \
+    mkdir -p $SOFT/lofreq/2.1.2 && \
+    tar xfvz lofreq_star-2.1.2_linux-x86-64.tgz && \
+    mv lofreq_star-2.1.2/bin $SOFT/lofreq/2.1.2/ && \
+    rmdir lofreq_star-2.1.2 && \
+    newmod.sh \
+    -s lofreq \
+    -p $MODF/bioinformatics/ \
+    -v 2.1.2 \
+    -d 2.1.2
 
 ##########################
 #### this part to end ####
@@ -610,7 +622,9 @@ EXPOSE 8787
 USER $NB_USER
 RUN echo "options(bitmapType='cairo')" > $HOME/.Rprofile
 RUN echo "source /etc/profile.d/modules.sh" >> $HOME/.bashrc
-RUN echo "PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]bioinf-container\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> $HOME/.bashrc
+COPY prompt $HOME 
+RUN cat $HOME/prompt >> $HOME/.bashrc
+#RUN echo "PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]bioinf-container\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> $HOME/.bashrc
 RUN echo "color_prompt=yes" >> $HOME/.bashrc
 RUN mkdir -p $HOME/.jupyter
 COPY jupyter_notebook_config.py /home/$NB_USER/.jupyter/
