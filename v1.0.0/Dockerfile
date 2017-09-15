@@ -1,7 +1,7 @@
 # Copyright (c) Bioinformatics Core Facility of the Max Planck Institute for Biology of Ageing.
 # Distributed under the terms of the Modified BSD License.
 
-# Debian Jessie 9.1 image available as latest 2017 September 15.
+# Debian stretch 9.1 image available as latest 2017 September 15.
 FROM debian@sha256:126052225b62db18c32f03a4462a92fad2ef243c6509371edb82a2298087b12c
 
 LABEL maintainer "bioinformatics@age.mpg.de"
@@ -10,13 +10,13 @@ USER root
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN echo "deb http://ftp.debian.org/debian jessie main non-free contrib" >> /etc/apt/sources.list \
-&& echo "deb-src http://ftp.debian.org/debian jessie main non-free contrib" >> /etc/apt/sources.list \
-&& echo "deb http://ftp.debian.org/debian jessie-updates main contrib non-free" >> /etc/apt/sources.list \
-&& echo "deb-src http://ftp.debian.org/debian jessie-updates main contrib non-free" >> /etc/apt/sources.list
+RUN echo "deb http://ftp.debian.org/debian stretch main non-free contrib" >> /etc/apt/sources.list \
+&& echo "deb-src http://ftp.debian.org/debian stretch main non-free contrib" >> /etc/apt/sources.list \
+&& echo "deb http://ftp.debian.org/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list \
+&& echo "deb-src http://ftp.debian.org/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list
 
 RUN REPO=http://cdn-fastly.deb.debian.org \
-&& echo "deb $REPO/debian jessie main\ndeb $REPO/debian-security jessie/updates main" > /etc/apt/sources.list \
+&& echo "deb $REPO/debian stretch main\ndeb $REPO/debian-security stretch/updates main" > /etc/apt/sources.list \
 && apt-get update && apt-get -yq dist-upgrade \
 && apt-get install -yq --no-install-recommends \
    libreadline-dev \
