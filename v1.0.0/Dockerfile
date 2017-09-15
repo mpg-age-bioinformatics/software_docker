@@ -66,6 +66,7 @@ RUN REPO=http://cdn-fastly.deb.debian.org \
    libpcre3-dev \
    libssl-dev \
    libsqlite3-dev \
+   libssl-dev \
    && apt-get clean \
    && rm -rf /var/lib/apt/lists/*
 
@@ -180,8 +181,8 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
  -v 3.3.2 \
  -d 3.3.2 \
 && echo "set home $::env(HOME)" >> $MODF/general/rlang/3.3.2 \
-&& echo "exec /bin/mkdir -p /home/$NB_USER/.software_container/.R/3.3.2/R_LIBS_USER/" >> $MODF/general/rlang/3.3.2 \
-&& echo "setenv R_LIBS_USER /home/$NB_USER/.software_container/.R/3.3.2/R_LIBS_USER" >> $MODF/general/rlang/3.3.2 \
+&& echo "exec /bin/mkdir -p \$home/.software_container/.R/3.3.2/R_LIBS_USER/" >> $MODF/general/rlang/3.3.2 \
+&& echo "setenv R_LIBS_USER \$home/.software_container/.R/3.3.2/R_LIBS_USER" >> $MODF/general/rlang/3.3.2 \
 && echo "prepend-path LD_LIBRARY_PATH $SOFT/rlang/3.3.2/lib64/R/lib" >> $MODF/general/rlang/3.3.2 \
 && echo "prepend-path CPATH $SOFT/rlang/3.3.2/lib64/R/include" >> $MODF/general/rlang/3.3.2 \
 && echo "prepend-path C_INCLUDE_PATH $SOFT/rlang/3.3.2/lib64/R/include" >> $MODF/general/rlang/3.3.2 \
@@ -209,19 +210,19 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
   -v 2.7.12 \
   -d 2.7.12 \
 && echo "set home $::env(HOME)" >> $MODF/general/python/2.7.12 \
-&& echo "set pythonuser /home/$NB_USER/.software_container/.python/2.7.12/bin" >> $MODF/general/python/2.7.12 \
+&& echo "set pythonuser \$home/.software_container/.python/2.7.12/bin" >> $MODF/general/python/2.7.12 \
 && echo "exec /bin/mkdir -p \$pythonuser" >> $MODF/general/python/2.7.12 \
-&& echo "prepend-path PATH /home/$NB_USER/.software_container/.python/2.7.12/bin" >> $MODF/general/python/2.7.12 \
-&& echo "set jupyter_runtime_dir /home/$NB_USER/.software_container/.python/2.7.12/jupyter/run" >> $MODF/general/python/2.7.12 \
+&& echo "prepend-path PATH $home/.software_container/.python/2.7.12/bin" >> $MODF/general/python/2.7.12 \
+&& echo "set jupyter_runtime_dir \$home/.software_container/.python/2.7.12/jupyter/run" >> $MODF/general/python/2.7.12 \
 && echo "exec /bin/mkdir -p \$jupyter_runtime_dir" >> $MODF/general/python/2.7.12 \
-&& echo "setenv JUPYTER_RUNTIME_DIR /home/$NB_USER/.software_container/.python/2.7.12/jupyter/run" >> $MODF/general/python/2.7.12 \
-&& echo "set jupyter_data_dir /home/$NB_USER/.software_container/.python/2.7.12/jupyter/data" >> $MODF/general/python/2.7.12 \
+&& echo "setenv JUPYTER_RUNTIME_DIR \$home/.software_container/.python/2.7.12/jupyter/run" >> $MODF/general/python/2.7.12 \
+&& echo "set jupyter_data_dir \$home/.software_container/.python/2.7.12/jupyter/data" >> $MODF/general/python/2.7.12 \
 && echo "exec /bin/mkdir -p \$jupyter_data_dir" >> $MODF/general/python/2.7.12 \
-&& echo "setenv JUPYTER_DATA_DIR /home/$NB_USER/.software_container/.python/2.7.12/jupyter/data" >> $MODF/general/python/2.7.12 \
+&& echo "setenv JUPYTER_DATA_DIR \$home/.software_container/.python/2.7.12/jupyter/data" >> $MODF/general/python/2.7.12 \
 && echo "setenv PYTHONHOME $SOFT/python/2.7.12/" >> $MODF/general/python/2.7.12 \
 && echo "setenv PYTHONPATH $SOFT/python/2.7.12/lib/python2.7" >> $MODF/general/python/2.7.12 \
-&& echo "setenv PYTHONUSERBASE /home/$NB_USER/.software_container/.python/2.7.12/" >> $MODF/general/python/2.7.12 \
-&& echo "exec /bin/mkdir -p /home/$NB_USER/.software_container/.python/2.7.12/pythonpath/site-packages" >> $MODF/general/python/2.7.12 \
+&& echo "setenv PYTHONUSERBASE \$home/.software_container/.python/2.7.12/" >> $MODF/general/python/2.7.12 \
+&& echo "exec /bin/mkdir -p \$home/.software_container/.python/2.7.12/pythonpath/site-packages" >> $MODF/general/python/2.7.12 \
 && echo "module load openblas/0.2.19" >> $MODF/general/python/2.7.12 \
 && echo "setenv CLFAGS -I$SOFT/openblas/0.2.19/include" >> $MODF/general/python/2.7.12 \
 && echo "setenv LDFLAGS -L$SOFT/openblas/0.2.19/lib" >> $MODF/general/python/2.7.12'
@@ -242,19 +243,19 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
   -p $MODF/general/ \
   -v 3.6.0 \
 && echo "set home $::env(HOME)" >> $MODF/general/python/3.6.0 \
-&& echo "set pythonuser /home/$NB_USER/.software_container/.python/3.6.0/bin" >> $MODF/general/python/3.6.0 \
+&& echo "set pythonuser \$home/.software_container/.python/3.6.0/bin" >> $MODF/general/python/3.6.0 \
 && echo "exec /bin/mkdir -p \$pythonuser" >> $MODF/general/python/3.6.0 \
-&& echo "prepend-path PATH /home/$NB_USER/.software_container/.python/3.6.0/bin" >> $MODF/general/python/3.6.0 \
-&& echo "set jupyter_runtime_dir /home/$NB_USER/.software_container/.python/3.6.0/jupyter/run" >> $MODF/general/python/3.6.0 \
+&& echo "prepend-path PATH \$home/.software_container/.python/3.6.0/bin" >> $MODF/general/python/3.6.0 \
+&& echo "set jupyter_runtime_dir \$home/.software_container/.python/3.6.0/jupyter/run" >> $MODF/general/python/3.6.0 \
 && echo "exec /bin/mkdir -p \$jupyter_runtime_dir" >> $MODF/general/python/3.6.0 \
-&& echo "setenv JUPYTER_RUNTIME_DIR /home/$NB_USER/.software_container/.python/3.6.0/jupyter/run" >> $MODF/general/python/3.6.0 \
-&& echo "set jupyter_data_dir /home/$NB_USER/.software_container/.python/3.6.0/jupyter/data" >> $MODF/general/python/3.6.0 \
+&& echo "setenv JUPYTER_RUNTIME_DIR \$home/.software_container/.python/3.6.0/jupyter/run" >> $MODF/general/python/3.6.0 \
+&& echo "set jupyter_data_dir \$home/.software_container/.python/3.6.0/jupyter/data" >> $MODF/general/python/3.6.0 \
 && echo "exec /bin/mkdir -p \$jupyter_data_dir" >> $MODF/general/python/3.6.0 \
-&& echo "setenv JUPYTER_DATA_DIR /home/$NB_USER/.software_container/.python/3.6.0/jupyter/data" >> $MODF/general/python/3.6.0 \
+&& echo "setenv JUPYTER_DATA_DIR \$home/.software_container/.python/3.6.0/jupyter/data" >> $MODF/general/python/3.6.0 \
 && echo "setenv PYTHONHOME $SOFT/python/3.6.0/" >> $MODF/general/python/3.6.0 \
 && echo "setenv PYTHONPATH $SOFT/python/3.6.0/lib/python3.6" >> $MODF/general/python/3.6.0 \
-&& echo "setenv PYTHONUSERBASE /home/$NB_USER/.software_container/.python/3.6.0/" >> $MODF/general/python/3.6.0 \
-&& echo "exec /bin/mkdir -p /home/$NB_USER/.software_container/.python/3.6.0/pythonpath/site-packages" >> $MODF/general/python/3.6.0 \
+&& echo "setenv PYTHONUSERBASE \$home/.software_container/.python/3.6.0/" >> $MODF/general/python/3.6.0 \
+&& echo "exec /bin/mkdir -p \$home/.software_container/.python/3.6.0/pythonpath/site-packages" >> $MODF/general/python/3.6.0 \
 && echo "module load openblas/0.2.19" >> $MODF/general/python/3.6.0 \
 && echo "setenv CLFAGS -I$SOFT/openblas/0.2.19/include" >> $MODF/general/python/3.6.0 \
 && echo "setenv LDFLAGS -L$SOFT/openblas/0.2.19/lib" >> $MODF/general/python/3.6.0'
@@ -278,18 +279,18 @@ LDFLAGS="-L$SOFT/openblas/0.2.19/lib" \
  -v 0.7.2 \
  -d 0.7.2 \
 && echo "set home $::env(HOME)" >> $MODF/general/jupyterhub/0.7.2 \
-&& echo "set pythonuser /home/$NB_USER/.software_container/.jupyterhub/0.7.2/bin" >> $MODF/general/jupyterhub/0.7.2 \
+&& echo "set pythonuser \$home/.software_container/.jupyterhub/0.7.2/bin" >> $MODF/general/jupyterhub/0.7.2 \
 && echo "exec /bin/mkdir -p \$pythonuser" >> $MODF/general/jupyterhub/0.7.2 \
-&& echo "prepend-path PATH /home/$NB_USER/.software_container/.jupyterhub/0.7.2/bin" >> $MODF/general/jupyterhub/0.7.2 \
-&& echo "set jupyter_runtime_dir /home/$NB_USER/.software_container/.jupyterhub/0.7.2/jupyter/run" >> $MODF/general/jupyterhub/0.7.2 \
+&& echo "prepend-path PATH \$home/.software_container/.jupyterhub/0.7.2/bin" >> $MODF/general/jupyterhub/0.7.2 \
+&& echo "set jupyter_runtime_dir \$home/.software_container/.jupyterhub/0.7.2/jupyter/run" >> $MODF/general/jupyterhub/0.7.2 \
 && echo "exec /bin/mkdir -p \$jupyter_runtime_dir" >> $MODF/general/jupyterhub/0.7.2 \
-&& echo "setenv JUPYTER_RUNTIME_DIR /home/$NB_USER/.software_container/.jupyterhub/0.7.2/jupyter/run" >> $MODF/general/jupyterhub/0.7.2 \
-&& echo "set jupyter_data_dir /home/$NB_USER/.software_container/.jupyterhub/0.7.2/jupyter/data" >> $MODF/general/jupyterhub/0.7.2 \
+&& echo "setenv JUPYTER_RUNTIME_DIR \$home/.software_container/.jupyterhub/0.7.2/jupyter/run" >> $MODF/general/jupyterhub/0.7.2 \
+&& echo "set jupyter_data_dir \$home/.software_container/.jupyterhub/0.7.2/jupyter/data" >> $MODF/general/jupyterhub/0.7.2 \
 && echo "exec /bin/mkdir -p \$jupyter_data_dir" >> $MODF/general/jupyterhub/0.7.2 \
-&& echo "setenv JUPYTER_DATA_DIR /home/$NB_USER/.software_container/.jupyterhub/0.7.2/jupyter/data" >> $MODF/general/jupyterhub/0.7.2 \
+&& echo "setenv JUPYTER_DATA_DIR \$home/.software_container/.jupyterhub/0.7.2/jupyter/data" >> $MODF/general/jupyterhub/0.7.2 \
 && echo "setenv PYTHONHOME $SOFT/jupyterhub/0.7.2/" >> $MODF/general/jupyterhub/0.7.2 \
-&& echo "setenv PYTHONUSERBASE /home/$NB_USER/.software_container/.jupyterhub/0.7.2/" >> $MODF/general/jupyterhub/0.7.2 \
-&& echo "exec /bin/mkdir -p /home/$NB_USER/.software_container/.jupyterhub/0.7.2/pythonpath/site-packages" >> $MODF/general/jupyterhub/0.7.2 \
+&& echo "setenv PYTHONUSERBASE \$home/.software_container/.jupyterhub/0.7.2/" >> $MODF/general/jupyterhub/0.7.2 \
+&& echo "exec /bin/mkdir -p \$home/.software_container/.jupyterhub/0.7.2/pythonpath/site-packages" >> $MODF/general/jupyterhub/0.7.2 \
 && echo "module load openblas/0.2.19 rlang/3.3.2" >> $MODF/general/jupyterhub/0.7.2 \
 && module load jupyterhub/0.7.2 \
 && pip3 install jupyter \
@@ -335,7 +336,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
   -v 2.4.0 \
   -d 2.4.0 \
 && echo "set home $::env(HOME)" >> $MODF/general/ruby/2.4.0 \
-&& echo "prepend-path PATH /home/$NB_USER/.software_container/.gem/ruby/2.4.0/bin" >> $MODF/general/ruby/2.4.0 \
+&& echo "prepend-path PATH \$home/.software_container/.gem/ruby/2.4.0/bin" >> $MODF/general/ruby/2.4.0 \
 && module load jupyterhub/0.7.2 \
 && module load ruby/2.4.0 \
 && pip3 install -I ipython[notebook] \
