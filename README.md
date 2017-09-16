@@ -1,13 +1,16 @@
 # software container
 
-Visit the containers at the [docker store](https://store.docker.com/community/images/mpgagebioinformatics/bioinformatics_software).
-
 This image contains some of the most popular software used at **Bioinformatics Core Facility of the Max Planck Institute for Biology of Ageing**.
+
 Software is versioned by making use of *Environment Modules*.
+
 Additionally to the standard bioinformatics tools, there is also a *Jupyter* and *RStudio server*  installation.  
+
 The *Jupyter* installation comes with *Python 2*, *Python 3*, *R*, and *ruby* kernels ready to go.
 
-#### Usage
+The container are available from the [docker store](https://store.docker.com/community/images/mpgagebioinformatics/bioinformatics_software).
+
+## Usage
 ----
 * Create a folder to map to the container's user home folder
 ```
@@ -44,7 +47,8 @@ Once you have connected to the running container you can start `jupyter` with
 module load jupyterhub
 jupyter notebook
 ```
-A URL will be presented to you, and it should be pasted into your host's browser (Chrome  recommended). 
+A URL will be presented to you, and it should be pasted into your host's browser (Chrome  recommended).
+
 For using the `ruby` kernel you will have to get your kernel registered by running once 
 ```
 module load jupyterhub
@@ -58,6 +62,7 @@ module load rlang
 sudo rstudio-server start
 ```
 You can then get access by connecting on your host's browser to [http://localhost:8787](http://localhost:8787).
+
 For stopping the server use:
 ```
 sudo rstudio-server stop
@@ -69,10 +74,11 @@ RStudio server is using the module rlang/3.3.2.
 User: `mpiage`
 
 Pass: `bioinf`
+
 ----
 **Note** : As only the home folder in the guest container gets mapped to the local host, all files NOT placed IN the home folder will be lost if the container is removed.
 
-#### [Environment Modules Project](http://modules.sourceforge.net)
+## [Environment Modules Project](http://modules.sourceforge.net)
 A centralized software system.
 The modules system loads software (version of choice) and changes environment 
 variables (eg. LD_LIBRARY_PATH).
@@ -93,9 +99,12 @@ variables (eg. LD_LIBRARY_PATH).
 * unload all loaded modules: 
 `module purge`  
 
-#### Versioning/Tags
-All images are released with the following tag structure: 
-**<major release>.<changed system package>.<changed software module>**
+## Versioning/Tags
+
+All images are released with the following tag structure:
+
+**`<major release>.<changed system package>.<changed software module>`**
+
 * **v0.0.1**: 
 First release.
 ```
