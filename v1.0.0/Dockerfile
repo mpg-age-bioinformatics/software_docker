@@ -73,7 +73,7 @@ RUN REPO=http://cdn-fastly.deb.debian.org \
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
    locale-gen
 
-RUN apt-get update && apt-get install -y libcairo2-dev libtool-bin libzmq3-dev
+RUN apt-get update && apt-get install -y libcairo2-dev libtool-bin libzmq3-dev tk tcl openssl libssl-dev libssh2-1-dev
 
 ENV SHELL /bin/bash
 ENV NB_USER mpiage
@@ -196,36 +196,36 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
 
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
 && module load openblas/0.2.19 \
-&& cd $SOUR && wget https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tgz \
-&& tar xzf Python-2.7.12.tgz \
-&& cd Python-2.7.12 \
-&& mkdir -p $SOFT/python/2.7.12/bin \
-&& ./configure --prefix=$SOFT/python/2.7.12 --enable-loadable-sqlite-extensions --enable-shared --with-ensurepip=yes \
+&& cd $SOUR && wget https://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz \
+&& tar xzf Python-2.7.13.tgz \
+&& cd Python-2.7.13 \
+&& mkdir -p $SOFT/python/2.7.13/bin \
+&& ./configure --prefix=$SOFT/python/2.7.13 --enable-loadable-sqlite-extensions --enable-shared --with-ensurepip=yes \
   CLFAGS="-I$SOFT/openblas/0.2.19/include" \
   LDFLAGS="-L$SOFT/openblas/0.2.19/lib" \
 && make && make install \
 && newmod.sh \
   -s python \
   -p $MODF/general/ \
-  -v 2.7.12 \
-  -d 2.7.12 \
-&& echo "set home $::env(HOME)" >> $MODF/general/python/2.7.12 \
-&& echo "set pythonuser \$home/.software_container/.python/2.7.12/bin" >> $MODF/general/python/2.7.12 \
-&& echo "exec /bin/mkdir -p \$pythonuser" >> $MODF/general/python/2.7.12 \
-&& echo "prepend-path PATH $home/.software_container/.python/2.7.12/bin" >> $MODF/general/python/2.7.12 \
-&& echo "set jupyter_runtime_dir \$home/.software_container/.python/2.7.12/jupyter/run" >> $MODF/general/python/2.7.12 \
-&& echo "exec /bin/mkdir -p \$jupyter_runtime_dir" >> $MODF/general/python/2.7.12 \
-&& echo "setenv JUPYTER_RUNTIME_DIR \$home/.software_container/.python/2.7.12/jupyter/run" >> $MODF/general/python/2.7.12 \
-&& echo "set jupyter_data_dir \$home/.software_container/.python/2.7.12/jupyter/data" >> $MODF/general/python/2.7.12 \
-&& echo "exec /bin/mkdir -p \$jupyter_data_dir" >> $MODF/general/python/2.7.12 \
-&& echo "setenv JUPYTER_DATA_DIR \$home/.software_container/.python/2.7.12/jupyter/data" >> $MODF/general/python/2.7.12 \
-&& echo "setenv PYTHONHOME $SOFT/python/2.7.12/" >> $MODF/general/python/2.7.12 \
-&& echo "setenv PYTHONPATH $SOFT/python/2.7.12/lib/python2.7" >> $MODF/general/python/2.7.12 \
-&& echo "setenv PYTHONUSERBASE \$home/.software_container/.python/2.7.12/" >> $MODF/general/python/2.7.12 \
-&& echo "exec /bin/mkdir -p \$home/.software_container/.python/2.7.12/pythonpath/site-packages" >> $MODF/general/python/2.7.12 \
-&& echo "module load openblas/0.2.19" >> $MODF/general/python/2.7.12 \
-&& echo "setenv CLFAGS -I$SOFT/openblas/0.2.19/include" >> $MODF/general/python/2.7.12 \
-&& echo "setenv LDFLAGS -L$SOFT/openblas/0.2.19/lib" >> $MODF/general/python/2.7.12'
+  -v 2.7.13 \
+  -d 2.7.13 \
+&& echo "set home $::env(HOME)" >> $MODF/general/python/2.7.13 \
+&& echo "set pythonuser \$home/.software_container/.python/2.7.13/bin" >> $MODF/general/python/2.7.13 \
+&& echo "exec /bin/mkdir -p \$pythonuser" >> $MODF/general/python/2.7.13 \
+&& echo "prepend-path PATH $home/.software_container/.python/2.7.13/bin" >> $MODF/general/python/2.7.13 \
+&& echo "set jupyter_runtime_dir \$home/.software_container/.python/2.7.13/jupyter/run" >> $MODF/general/python/2.7.13 \
+&& echo "exec /bin/mkdir -p \$jupyter_runtime_dir" >> $MODF/general/python/2.7.13 \
+&& echo "setenv JUPYTER_RUNTIME_DIR \$home/.software_container/.python/2.7.13/jupyter/run" >> $MODF/general/python/2.7.13 \
+&& echo "set jupyter_data_dir \$home/.software_container/.python/2.7.13/jupyter/data" >> $MODF/general/python/2.7.13 \
+&& echo "exec /bin/mkdir -p \$jupyter_data_dir" >> $MODF/general/python/2.7.13 \
+&& echo "setenv JUPYTER_DATA_DIR \$home/.software_container/.python/2.7.13/jupyter/data" >> $MODF/general/python/2.7.13 \
+&& echo "setenv PYTHONHOME $SOFT/python/2.7.13/" >> $MODF/general/python/2.7.13 \
+&& echo "setenv PYTHONPATH $SOFT/python/2.7.13/lib/python2.7" >> $MODF/general/python/2.7.13 \
+&& echo "setenv PYTHONUSERBASE \$home/.software_container/.python/2.7.13/" >> $MODF/general/python/2.7.13 \
+&& echo "exec /bin/mkdir -p \$home/.software_container/.python/2.7.13/pythonpath/site-packages" >> $MODF/general/python/2.7.13 \
+&& echo "module load openblas/0.2.19" >> $MODF/general/python/2.7.13 \
+&& echo "setenv CLFAGS -I$SOFT/openblas/0.2.19/include" >> $MODF/general/python/2.7.13 \
+&& echo "setenv LDFLAGS -L$SOFT/openblas/0.2.19/lib" >> $MODF/general/python/2.7.13'
 
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
 && module load openblas/0.2.19 \
@@ -262,7 +262,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
 
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
 && module load openblas/0.2.19 \
-&& cd $SOUR/Python-2.7.12 \
+&& cd $SOUR/Python-2.7.13 \
 && mkdir -p $SOFT/jupyterhub/0.7.2/bin \
 && ./configure --prefix=$SOFT/jupyterhub/0.7.2 --enable-loadable-sqlite-extensions --enable-shared --with-ensurepip=yes \
   CLFAGS="-I$SOFT/openblas/0.2.19/include" \
@@ -315,7 +315,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
 && Rscript $SOUR/.install.jupyter.R.kernel.3.3.2 && rm $SOUR/jupyter.install.R $SOUR/_jupyter.install.R $SOUR/.install.jupyter.R.kernel.3.3.2'
 ## Finished installation of jupyter R kernel
 
-RUN wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz \
+RUN cd $SOUR && wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz \
 && tar -xzvf ruby-install-0.6.1.tar.gz \
 && cd ruby-install-0.6.1/ \
 && mkdir -p $SOFT/ruby-install/0.6.1 \
@@ -326,32 +326,36 @@ RUN wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/ruby-install
     -v 0.6.1 \
     -d 0.6.1
 
+RUN apt install -yq libtool libffi-dev ruby ruby-dev make && \
+apt install -yq libzmq3-dev libczmq-dev
+
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
 && module load ruby-install \
-&& mkdir -p $SOFT/ruby/2.4.0 \
-&& $SOFT/ruby-install/0.6.1/bin/ruby-install ruby 2.4.0 --no-install-deps --install-dir $SOFT/ruby/2.4.0 \
+&& mkdir -p $SOFT/ruby/2.4.2 \
+&& $SOFT/ruby-install/0.6.1/bin/ruby-install ruby 2.4.2 --no-install-deps --install-dir $SOFT/ruby/2.4.2 \
 && newmod.sh \
   -s ruby \
   -p $MODF/general/ \
-  -v 2.4.0 \
-  -d 2.4.0 \
-&& echo "set home $::env(HOME)" >> $MODF/general/ruby/2.4.0 \
-&& echo "prepend-path PATH \$home/.software_container/.gem/ruby/2.4.0/bin" >> $MODF/general/ruby/2.4.0 \
+  -v 2.4.2 \
+  -d 2.4.2 \
+&& echo "set home $::env(HOME)" >> $MODF/general/ruby/2.4.2 \
+&& echo "prepend-path PATH \$home/.software_container/.gem/ruby/2.4.2/bin" >> $MODF/general/ruby/2.4.2 \
 && module load jupyterhub/0.7.2 \
-&& module load ruby/2.4.0 \
+&& module load ruby/2.4.2 \
 && pip3 install -I ipython[notebook] \
-&& gem install rbczmq \
-&& gem install cztop \
-&& gem install iruby \
-&& echo "module load ruby/2.4.0" >> $MODF/general/jupyterhub/0.7.2'
+&& module load jupyterhub/0.7.2 \
+&& module load ruby/2.4.2 \
+&& gem install cztop iruby \
+&& iruby register --force \
+&& echo "module load ruby/2.4.2" >> $MODF/general/jupyterhub/0.7.2'
 
 ## Install rstudio server ##
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
 && module load python/2.7.12 \
 && module load rlang \
 && apt-get update && apt-get install -y cmake libpam0g-dev lsb-release libedit2 libapparmor1 \
-&& wget https://download2.rstudio.org/rstudio-server-1.0.136-amd64.deb \
-&& dpkg -i rstudio-server-1.0.136-amd64.deb \
+&& wget https://download2.rstudio.org/rstudio-server-1.0.153-amd64.deb \
+&& dpkg -i rstudio-server-1.0.153-amd64.deb \
 && echo "rsession-which-r=$(which R)" >> /etc/rstudio/rserver.conf'
 
 #########################################
@@ -626,12 +630,12 @@ USER $NB_USER
 COPY .bashrc /home/$NB_USER/.bashrc
 
 RUN echo "options(bitmapType='cairo')" > /home/$NB_USER/.Rprofile
-RUN mkdir -p /home/$NB_USER/.jupyter
-COPY jupyter_notebook_config.py /home/$NB_USER/.jupyter/
+RUN mkdir -p /home/$NB_USER/.software_container/.jupyter
+COPY jupyter_notebook_config.py /home/$NB_USER/.software_container/.jupyter/
 USER root
 
 # Folders in home folder that should be kept
-ENV HOFOL ".bash_logout .jupyter .bashrc .profile  .texmf-var .Rprofile .software_container "
+ENV HOFOL ".bash_logout .jupyter .bashrc .texmf-var .Rprofile .software_container"
 
 RUN mkdir -p /home/_mpiage \
 && for f in $HOFOL ; do \
