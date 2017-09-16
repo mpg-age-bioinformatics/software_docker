@@ -73,7 +73,9 @@ RUN REPO=http://cdn-fastly.deb.debian.org \
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
    locale-gen
 
-RUN apt-get update && apt-get install -y libcairo2-dev libtool-bin libzmq3-dev tk tcl openssl libssl-dev libssh2-1-dev
+RUN apt-get update && apt-get install -y libncurses5-dev libcairo2-dev libtool-bin libzmq3-dev tk tcl openssl libssl-dev libssh2-1-dev \
+&& apt install -yq libtool libffi-dev ruby ruby-dev make \
+&& apt install -yq libzmq3-dev libczmq-de v
 
 ENV SHELL /bin/bash
 ENV NB_USER mpiage
@@ -326,9 +328,6 @@ RUN cd $SOUR && wget -O ruby-install-0.6.1.tar.gz https://github.com/postmodern/
     -v 0.6.1 \
     -d 0.6.1
 
-RUN apt install -yq libtool libffi-dev ruby ruby-dev make && \
-apt install -yq libzmq3-dev libczmq-dev
-
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
 && module load ruby-install \
 && mkdir -p $SOFT/ruby/2.4.2 \
@@ -410,8 +409,6 @@ RUN cd $SOUR && \
   -v 0.11.5 \
   -d 0.11.5 && \
   echo "module load java" >> $MODF/bioinformatics/fastqc/0.11.5
-
-RUN apt-get update && apt-get install libncurses5-dev
 
 RUN cd $SOUR && \
   wget https://github.com/samtools/samtools/releases/download/1.3.1/samtools-1.3.1.tar.bz2 && \
@@ -635,30 +632,31 @@ COPY jupyter_notebook_config.py /home/$NB_USER/.software_container/.jupyter/
 USER root
 
 # Folders in home folder that should be kept
-ENV HOFOL ".bash_logout .jupyter .bashrc .texmf-var .Rprofile .software_container"
+ENV HOFOL ".bashrc .bash_logout .Rprofile .software_container"
+
+RUN for i in $(ls /home/mpiage/) ; do echo ${i}; done
 
 RUN mkdir -p /home/_mpiage \
 && for f in $HOFOL ; do \
-cp -r /home/$NB_USER/${f} /home/_mpiage/; \
+  if [ ! -e /home/mpiage/${f} ] ;\
+    then echo 'no ${f}..' ;\
+  else cp -rv /home/mpiage/${f} /home/_mpiage/; \
+  fi \ 
 done
+
 
 ENTRYPOINT /bin/bash -c '\
 for f in $HOFOL ; do \
-  if [[ ! -e /home/$NB_USER/${f} ]]; \
-    then cp -vr /home/_mpiage/${f} /home/$NB_USER/${f}; \
+  if [[ ! -e /home/mpiage/${f} ]] ; \
+    then cp -vr /home/_mpiage/${f} /home/mpiage/${f}; \
   fi \
 done \
-&& source /home/$NB_USER/.bashrc \
+&& source /home/mpiage/.bashrc \
 && /bin/bash'
-WORKDIR /home/$NB_USER
-RUN chown -R mpiage: /home/$NB_USER
-
-USER $NB_USER
-
-
-##########################
-#### this part to end ####
-##########################
+WORKDIR /home/mpiage
+RUN chown -R mpiage: /home/mpiage
 
 RUN mkdir -p /Dockerfiles/v1.0.0
 COPY Dockerfile /Dockerfiles/v1.0.0/
+
+USER $NB_USER
