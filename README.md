@@ -8,7 +8,7 @@ Additionally to the standard bioinformatics tools, there is also a *Jupyter* and
 
 The *Jupyter* installation comes with *Python 2*, *Python 3*, *R*, and *ruby* kernels ready to go.
 
-The container are available from the [docker store](https://store.docker.com/community/images/mpgagebioinformatics/bioinformatics_software).
+The container is available from the [docker store](https://store.docker.com/community/images/mpgagebioinformatics/bioinformatics_software).
 
 ## Usage
 * Create a folder to map to the container's user home folder
