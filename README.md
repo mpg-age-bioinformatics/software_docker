@@ -11,7 +11,6 @@ The *Jupyter* installation comes with *Python 2*, *Python 3*, *R*, and *ruby* ke
 The container are available from the [docker store](https://store.docker.com/community/images/mpgagebioinformatics/bioinformatics_software).
 
 ## Usage
-----
 * Create a folder to map to the container's user home folder
 ```
 mkdir -p ~/bioinf-container
