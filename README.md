@@ -68,8 +68,9 @@ For stopping the server use:
 sudo rstudio-server stop
 ```
 RStudio server is using the module rlang/3.3.2. 
+
 ----
-* User account.
+* User account
 
 User: `mpiage`
 
