@@ -157,3 +157,11 @@ xz/5.2.2(default)
   Removed ENV HOME from Dockerfile.
 
   Replaced python 2.7.12 with 2.7.13.
+
+## Shifter
+
+Shifer users should add the following line to their host `~/.bashrc`:
+
+```bash
+if [[ -e /home/mpiage/.bashrc ]]; then module purge; unset PYTHONHOME PYTHONUSERBASE PYTHONPATH; source /home/mpiage/.bashrc; fi
+```
