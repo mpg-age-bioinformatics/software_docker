@@ -42,6 +42,7 @@ sudo docker stop bioinf-container
 ```
 ----
 * Jupyter
+
 Once you have connected to the running container you can start `jupyter` with
 ```
 module load jupyterhub
