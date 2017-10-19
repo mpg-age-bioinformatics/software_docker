@@ -158,6 +158,13 @@ xz/5.2.2(default)
 
   Replaced python 2.7.12 with 2.7.13.
 
+* **v1.0.1**
+
+  Added `gsl/2.4.0`
+  Added `methpipe/3.4.3`
+  Added `walt/1.0.0`
+
+
 ## Shifter
 
 Shifer users should add the following line to their host `~/.bashrc`:
