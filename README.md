@@ -1,5 +1,19 @@
 # software container
 
+[Introduction](#introduction)
+
+[Usage](#usage)
+
+[Environment Modules Project](environment-modules-project)
+
+[Versioning/Tags](#versioningtags)
+
+[Shifter](#shifter)
+
+[Contributing](#contributing)
+
+## Introduction
+
 This image contains some of the most popular software used at **Bioinformatics Core Facility of the Max Planck Institute for Biology of Ageing**.
 
 Software is versioned by making use of *Environment Modules*.
@@ -174,3 +188,33 @@ Shifer users should add the following line to their host `~/.bashrc`:
 ```bash
 if [[ -e /home/mpiage/.bashrc ]]; then module purge; unset PYTHONHOME PYTHONUSERBASE PYTHONPATH; source /home/mpiage/.bashrc; fi
 ```
+
+## Contributing 
+
+Clone this repo:
+```bash
+git clone https://github.com/mpg-age-bioinformatics/software_docker.git
+```
+Make a new version folder in agreement with
+https://github.com/mpg-age-bioinformatics/software_docker#versioningtags
+```bash
+cd software_docker
+mkdir v1.0.1
+cd v1.0.1
+touch Dockerfile
+```
+Generate the content of the docker using the examples from previous Dockerfiles and build the image with:
+```bash
+sudo docker build .
+```
+Try the image and test respective changes
+```bash
+mkdir -p ~/bioinf-container
+
+sudo docker run -d -p 8787:8787 -p 8888:8888 \
+-v ~/bioinf-container:/home/mpiage --name bioinf-container \
+-it <image tag>
+
+sudo docker exec -i -t bioinf-container /bin/bash
+```
+Push your changes to the repo to github.
