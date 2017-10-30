@@ -63,7 +63,7 @@ jupyter notebook
 ```
 A URL will be presented to you, and it should be pasted into your host's browser (Chrome  recommended).
 
-For using the `ruby` kernel you will have to get your kernel registered by running once 
+For using the `ruby` kernel you will have to get your kernel registered by running once
 ```
 module load jupyterhub
 iruby notebook
@@ -81,7 +81,7 @@ For stopping the server use:
 ```
 sudo rstudio-server stop
 ```
-RStudio server is using the module rlang/3.3.2. 
+RStudio server is using the module rlang/3.3.2.
 
 ----
 * User account
@@ -95,23 +95,23 @@ Pass: `bioinf`
 
 ## [Environment Modules Project](http://modules.sourceforge.net)
 A centralized software system.
-The modules system loads software (version of choice) and changes environment 
+The modules system loads software (version of choice) and changes environment
 variables (eg. LD_LIBRARY_PATH).
-* show available modules: 
-`module avail`	
-* show a description of the samtools module: 
-`module whatis samtools` 
-* show environment changes for samtools: 
+* show available modules:
+`module avail`
+* show a description of the samtools module:
+`module whatis samtools`
+* show environment changes for samtools:
 `module show samtools`
-* load default samtools version: 
+* load default samtools version:
 `module load samtools`		
-* load specific samtools version: 
+* load specific samtools version:
 `module load samtools/1.2.1`
-* list all loaded modules: 
+* list all loaded modules:
 `module list`
-* unload the samtools module: 
+* unload the samtools module:
 `module unload samtools`
-* unload all loaded modules: 
+* unload all loaded modules:
 `module purge`  
 
 ## Versioning/Tags
@@ -120,7 +120,7 @@ All images are released with the following tag structure:
 
 **`<major release>.<changed system package>.<changed software module>`**
 
-* **v0.0.1**: 
+* **v0.0.1**:
 First release.
 ```
 ---- /modules/modulefiles/bioinformatics ----
@@ -152,7 +152,7 @@ rlang/3.3.2(default)
 ruby/2.4.0(default)
 ---- /modules/modulefiles/libs ----
 bzip2/1.0.6(default)
-openblas/0.2.19(default) 
+openblas/0.2.19(default)
 xz/5.2.2(default)
 ```
 
@@ -164,7 +164,7 @@ xz/5.2.2(default)
 
   Added `lofreq/2.1.2(default)`
 
-* **v1.0.0**: 
+* **v1.0.0**:
 
   Moved to cents 9.1.
 
@@ -175,9 +175,9 @@ xz/5.2.2(default)
 * **v1.0.1**
 
   Added `gsl/2.4.0`
-  
+
   Added `methpipe/3.4.3`
-  
+
   Added `walt/1.0.0`
 
 
@@ -189,7 +189,7 @@ Shifer users should add the following line to their host `~/.bashrc`:
 if [[ -e /home/mpiage/.bashrc ]]; then module purge; unset PYTHONHOME PYTHONUSERBASE PYTHONPATH; source /home/mpiage/.bashrc; fi
 ```
 
-## Contributing 
+## Contributing
 
 Clone this repo:
 ```bash
@@ -202,7 +202,9 @@ mkdir v1.0.1
 cd v1.0.1
 touch Dockerfile
 ```
-Generate the content of the Dockerfile using the examples from previous Dockerfiles and build the image with:
+Generate the content of the Dockerfile making sure that on the "FROM" you are using the key for latest available version and using the examples from previous Dockerfiles.
+
+Build the image with:
 ```bash
 sudo docker build .
 ```
