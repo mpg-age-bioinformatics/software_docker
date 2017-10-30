@@ -202,7 +202,7 @@ mkdir v1.0.1
 cd v1.0.1
 touch Dockerfile
 ```
-Generate the content of the docker using the examples from previous Dockerfiles and build the image with:
+Generate the content of the Dockerfile using the examples from previous Dockerfiles and build the image with:
 ```bash
 sudo docker build .
 ```
