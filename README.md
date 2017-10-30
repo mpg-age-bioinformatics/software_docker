@@ -195,8 +195,7 @@ Clone this repo:
 ```bash
 git clone https://github.com/mpg-age-bioinformatics/software_docker.git
 ```
-Make a new version folder in agreement with
-https://github.com/mpg-age-bioinformatics/software_docker#versioningtags
+Make a new version folder in agreement with [Versioning/Tags](#versioningtags):
 ```bash
 cd software_docker
 mkdir v1.0.1
