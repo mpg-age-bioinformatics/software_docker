@@ -166,7 +166,7 @@ xz/5.2.2(default)
 
 * **v1.0.0**:
 
-  Moved to cents 9.1.
+  Moved to debian 9.1.
 
   Removed ENV HOME from Dockerfile.
 
