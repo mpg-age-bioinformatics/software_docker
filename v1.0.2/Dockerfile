@@ -23,7 +23,28 @@ RUN mkdir -p $SOFT/bwtool/git170623 && mkdir $SOUR/bwtool-git170623 && \
   -p $MODF/bioinformatics/ \
   -v git170623 \
   -d git170623
+  
+RUN cd $SOUR && git clone https://github.com/nsoranzo/sspace_basic.git &&\
+  cd sspace_basic && \
+  mkdir -p $SOFT/sspace/2.0.0
+  git checkout cdd1d392d7eb89bf21dd0c6d57055b5f86a73efe && \
+  for f in $(ls *.pl); do { echo '#!/usr/bin/env perl' ; cat ${f} ; } > ${f%.pl} ; chmod +x ${f%.pl}; done && \
+  cd bin && \
+  for f in $(ls *.pl); do { echo '#!/usr/bin/env perl' ; cat ${f} ; } > ${f%.pl} ; chmod +x ${f%.pl}; done && \
+  cd ../tools && \
+  for f in $(ls *.pl); do { echo '#!/usr/bin/env perl' ; cat ${f} ; } > ${f%.pl} ; chmod +x ${f%.pl}; done && \
+  cd ../ && \
+  cp -r * $SOFT/sspace/2.0.0 && \
+  newmod.sh \
+  -s sspace \
+  -p $MODF/bioinformatics/ \
+  -v 2.0.0 \
+  -d 2.0.0 && \
+  echo "prepend-path PATH $SOFT/sspace/2.0.0" >> $MODF/bioinformatics/sspace/2.0.0
 
+RUN apt-get install curl libcurl3 libcurl3-dev
+  
+RUN cd /bin && curl -L https://cpanmin.us/ -o cpanm
 
 ##########################
 #### this part to end ####
