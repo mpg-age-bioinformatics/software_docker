@@ -44,7 +44,16 @@ RUN cd $SOUR && git clone https://github.com/nsoranzo/sspace_basic.git &&\
 
 RUN apt-get install curl libcurl3 libcurl3-dev
   
-RUN cd /bin && curl -L https://cpanmin.us/ -o cpanm
+RUN mkdir -p $SOFT/perl/5.24.1/bin && \
+  cd $SOFT/perl/5.24.1/bin && \
+  curl -L https://cpanmin.us/ -o cpanm && \
+  chmod +x cpanm && \
+  newmod.sh -s perl -p $MODF/general -v 5.24.1 -d 5.24.1 && \
+  echo 'set home $::env(HOME)' >> $MODF/general/perl/5.24.1 && \
+  echo 'set perluser $home/.software_container/.perl/5.24.1' >> $MODF/general/perl/5.24.1 && \
+  echo 'exec /bin/mkdir -p $perluser' >> $MODF/general/perl/5.24.1 && \
+  echo 'prepend-path PERL5LIB $perluser/lib/perl5' >> $MODF/general/perl/5.24.1 && \
+  echo 'setenv PERLUSER $perluser' >> $MODF/general/perl/5.24.1
 
 ##########################
 #### this part to end ####
