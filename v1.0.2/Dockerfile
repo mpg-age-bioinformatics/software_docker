@@ -24,7 +24,7 @@ RUN mkdir -p $SOFT/bwtool/face601 && mkdir $SOUR/bwtool-face601 && \
   -v face601 \
   -d face601
   
-RUN apt-get install curl libcurl3 libcurl3-dev
+RUN apt-get install -yq curl libcurl3 libcurl3-dev
   
 RUN mkdir -p $SOFT/perl/5.24.1/bin && \
   cd $SOFT/perl/5.24.1/bin && \
