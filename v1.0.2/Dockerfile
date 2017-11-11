@@ -8,40 +8,22 @@ LABEL maintainer "bioinformatics@age.mpg.de"
 
 USER root
 
-RUN mkdir -p $SOFT/bwtool/git170623 && mkdir $SOUR/bwtool-git170623 && \
-  cd $SOUR/bwtool-git170623 && \
+RUN mkdir -p $SOFT/bwtool/face601 && mkdir $SOUR/bwtool-face601 && \
+  cd $SOUR/bwtool-face601 && \
   git clone https://github.com/CRG-Barcelona/bwtool.git && \
   cd bwtool && git reset --hard face6010e09cd7480e2e01d1e479bb82cbfb5cbc && cd .. && \
   git clone https://github.com/CRG-Barcelona/libbeato.git && \
   cd libbeato && git reset --hard 2124facbb0ca7eb18c1df438a262d549199263fb && \
-  ./configure --prefix=$SOFT/bwtool/git170623 CFLAGS="-g -O0 -I${SOFT}/bwtool/git170623/include" LDFLAGS=-L${SOFT}/bwtool/git170623/lib && \
+  ./configure --prefix=$SOFT/bwtool/face601 CFLAGS="-g -O0 -I${SOFT}/bwtool/face601/include" LDFLAGS=-L${SOFT}/bwtool/face601/lib && \
   make && make install && cd ../bwtool/ && \
-  ./configure --prefix=$SOFT/bwtool/git170623 CFLAGS="-g -O0 -I${SOFT}/bwtool/git170623/include" LDFLAGS=-L${SOFT}/bwtool/git170623/lib && \
+  ./configure --prefix=$SOFT/bwtool/face601 CFLAGS="-g -O0 -I${SOFT}/bwtool/face601/include" LDFLAGS=-L${SOFT}/bwtool/face601/lib && \
   make && make install && \
   newmod.sh \
   -s bwtool \
   -p $MODF/bioinformatics/ \
-  -v git170623 \
-  -d git170623
+  -v face601 \
+  -d face601
   
-RUN cd $SOUR && git clone https://github.com/nsoranzo/sspace_basic.git &&\
-  cd sspace_basic && \
-  mkdir -p $SOFT/sspace/2.0.0
-  git checkout cdd1d392d7eb89bf21dd0c6d57055b5f86a73efe && \
-  for f in $(ls *.pl); do { echo '#!/usr/bin/env perl' ; cat ${f} ; } > ${f%.pl} ; chmod +x ${f%.pl}; done && \
-  cd bin && \
-  for f in $(ls *.pl); do { echo '#!/usr/bin/env perl' ; cat ${f} ; } > ${f%.pl} ; chmod +x ${f%.pl}; done && \
-  cd ../tools && \
-  for f in $(ls *.pl); do { echo '#!/usr/bin/env perl' ; cat ${f} ; } > ${f%.pl} ; chmod +x ${f%.pl}; done && \
-  cd ../ && \
-  cp -r * $SOFT/sspace/2.0.0 && \
-  newmod.sh \
-  -s sspace \
-  -p $MODF/bioinformatics/ \
-  -v 2.0.0 \
-  -d 2.0.0 && \
-  echo "prepend-path PATH $SOFT/sspace/2.0.0" >> $MODF/bioinformatics/sspace/2.0.0
-
 RUN apt-get install curl libcurl3 libcurl3-dev
   
 RUN mkdir -p $SOFT/perl/5.24.1/bin && \
