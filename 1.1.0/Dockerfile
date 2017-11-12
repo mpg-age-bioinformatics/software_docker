@@ -23,9 +23,9 @@ RUN mkdir -p $SOFT/bwtool/face601 && mkdir $SOUR/bwtool-face601 && \
   -p $MODF/bioinformatics/ \
   -v face601 \
   -d face601
-  
+
 RUN apt-get install -yq curl libcurl3 libcurl3-dev
-  
+
 RUN mkdir -p $SOFT/perl/5.24.1/bin && \
   cd $SOFT/perl/5.24.1/bin && \
   curl -L https://cpanmin.us/ -o cpanm && \
@@ -36,6 +36,33 @@ RUN mkdir -p $SOFT/perl/5.24.1/bin && \
   echo 'exec /bin/mkdir -p $perluser' >> $MODF/general/perl/5.24.1 && \
   echo 'prepend-path PERL5LIB $perluser/lib/perl5' >> $MODF/general/perl/5.24.1 && \
   echo 'setenv PERLUSER $perluser' >> $MODF/general/perl/5.24.1
+
+RUN mkdir -p $SOFT/jdk/8.0.151/bin && \
+  cd $SOUR && curl -J -O https://datashare.mpcdf.mpg.de/s/WZ9q3RKowOZQAXf/download && \
+  tar -zxvf jdk1.8.0_151.tar.gz && \
+  cd jdk1.8.0_151 && \
+  cp -r * $SOFT/jdk/8.0.151/ && \
+  newmod.sh \
+  -s jdk \
+  -p $MODF/general/ \
+  -v 8.0.151 \
+  -d 8.0.151
+
+RUN mkdir -p $SOFT/gatk/4.beta.5/bin && \
+  cd $SOUR && \
+  wget -O gatk-4.beta.5.zip  https://software.broadinstitute.org/gatk/download/auth?package=BETA && \
+  unzip gatk-4.beta.5.zip && \
+  cd gatk-4.beta.5 && \
+  cp * $SOFT/gatk/4.beta.5/bin && \
+  newmod.sh \
+  -s gatk \
+  -p $MODF/bioinformatics/ \
+  -v 4.beta.5 \
+  -d 4.beta.5 && \
+  echo 'module load jdk/8.0.151' >> $MODF/bioinformatics/gatk/4.beta.5
+
+
+
 
 ##########################
 #### this part to end ####
