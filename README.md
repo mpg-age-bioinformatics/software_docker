@@ -180,6 +180,17 @@ xz/5.2.2(default)
 
   Added `walt/1.0.0`
 
+* **v1.1.0**
+
+  Added `curl libcurl3 libcurl3-dev`
+
+  Added `bwtool/face601`
+
+  Added `perl/5.24.1` (cpanm)
+
+  Added `jdk/8.0.151`
+
+  Added `gatk/4.beta.5`
 
 ## Shifter
 
