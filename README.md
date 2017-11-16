@@ -192,6 +192,13 @@ xz/5.2.2(default)
 
   Added `gatk/4.beta.5`
 
+* **v1.1.1**
+  Added `pkg-config libfreetype6-dev libpng-dev liblmdb-dev`
+
+  Added `quast/4.6.0`
+
+  Added `blast/2.7.1`
+
 ## Shifter
 
 Shifer users should add the following line to their host `~/.bashrc`:
