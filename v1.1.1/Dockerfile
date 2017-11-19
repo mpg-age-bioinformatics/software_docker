@@ -53,6 +53,8 @@ RUN mkdir -p $SOFT/blast/2.7.1 && \
   -v 2.7.1 \
   -d 2.7.1
 
+# FIX R module file for debian
+RUN sed -i 's/lib64/lib/g' /modules/modulefiles/general/rlang/3.3.2
 
 ##########################
 #### this part to end ####
