@@ -56,6 +56,45 @@ RUN mkdir -p $SOFT/blast/2.7.1 && \
 # FIX R module file for debian
 RUN sed -i 's/lib64/lib/g' /modules/modulefiles/general/rlang/3.3.2
 
+# Installing primer3
+
+RUN mkdir -p $SOFT/primer3/2.4.0/bin && \
+  cd $SOUR && \ 
+  wget -O primer3-2.4.0.tar.gz 'https://downloads.sourceforge.net/project/primer3/primer3/2.4.0/primer3-2.4.0.tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fprimer3%2F&ts=1511256562&use_mirror=netix' && \ 
+  tar -xzf primer3-2.4.0.tar.gz && \
+  cd primer3-2.4.0/src && \
+  make all && \
+  cp -r * $SOFT/primer3/2.4.0/bin && \
+  newmod.sh \
+  -s primer3 \
+  -p $MODF/bioinformatics/ \
+  -v 2.4.0 \
+  -d 2.4.0
+
+#RUN mkdir -p teste3
+
+#instaling trimmomatic 
+
+RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \ 
+  mkdir -p $SOFT/trimmomatic/0.36/bin && \
+  module load java && \
+  cd $SOUR && \
+  wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.36.zip && \
+  unzip Trimmomatic-0.36.zip && \
+  cd Trimmomatic-0.36 && \
+  cp -r * $SOFT/trimmomatic/0.36/bin && \
+  chmod 775 $SOFT/trimmomatic/0.36/bin/*.jar && \
+  newmod.sh \
+  -s trimmomatic \
+  -p $MODF/bioinformatics/ \
+  -v 0.36 \
+  -d 0.36 && \
+  echo "module load java" >> $MODF/bioinformatics/trimmomatic/0.36 && \
+  echo "setenv TRIMMOMATIC $SOFT/trimmomatic/0.36/bin/trimmomatic-0.36.jar" >> $MODF/bioinformatics/trimmomatic/0.36' 
+
+
+
+
 ##########################
 #### this part to end ####
 ##########################
