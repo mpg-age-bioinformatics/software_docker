@@ -54,7 +54,8 @@ RUN mkdir -p $SOFT/blast/2.7.1 && \
   -d 2.7.1
 
 # FIX R module file for debian
-RUN sed -i 's/lib64/lib/g' /modules/modulefiles/general/rlang/3.3.2
+RUN sed -i 's/lib64/lib/g' /modules/modulefiles/general/rlang/3.3.2 && \
+  sed -i 's/CLFAGS/CFLAGS/g' /modules/modulefiles/general/rlang/3.3.2
 
 # Installing primer3
 RUN mkdir -p $SOFT/primer3/2.4.0/bin && \
@@ -113,13 +114,15 @@ RUN rm -rf $MODF/general/python/2.7.13 &&\
 && echo "setenv CLFAGS -I$SOFT/openblas/0.2.19/include" >> $MODF/general/python/2.7.13 \
 && echo "setenv LDFLAGS -L$SOFT/openblas/0.2.19/lib" >> $MODF/general/python/2.7.13
 
+RUN echo "setenv JAVA_HOME $SOFT/jdk/8.0.151" >> $MODF/general/jdk/8.0.151
+
 # Install R-3.4.3
 
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
   && module load bzip2/1.0.6 \
   && module load xz/5.2.2 \
   && module load openblas/0.2.19 \
-  && module load java/8.0.111 \
+  && module load jdk/8.0.151 \
   && cd $SOUR && wget http://ftp5.gwdg.de/pub/misc/cran/src/base/R-3/R-3.4.3.tar.gz \
   && tar -xzf R-3.4.3.tar.gz \
   && cd R-3.4.3 \
@@ -127,10 +130,12 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
   && ./configure --prefix=$SOFT/rlang/3.4.3 \
    CFLAGS="-I$SOFT/bzip2/1.0.6/include \
    -I$SOFT/xz/5.2.2/include \
-   -I$SOFT/openblas/0.2.19/include" \
+   -I$SOFT/openblas/0.2.19/include \
+   -I$SOFT/jdk/8.0.151/include" \
    LDFLAGS="-L$SOFT/bzip2/1.0.6/lib \
    -L$SOFT/xz/5.2.2/lib \
-   -L$SOFT/openblas/0.2.19/lib" \
+   -L$SOFT/openblas/0.2.19/lib \
+   -L$SOFT/jdk/8.0.151/lib" \
    --with-cairo=yes --with-libpng=yes \
    --with-readline --with-tcltk --enable-BLAS-shlib --enable-R-profiling \
    --enable-R-shlib=yes --enable-memory-profiling --with-blas --with-lapack \
@@ -148,9 +153,9 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh \
   && echo "prepend-path C_INCLUDE_PATH $SOFT/rlang/3.4.3/lib/R/include" >> $MODF/general/rlang/3.4.3 \
   && echo "prepend-path CPLUS_INCLUDE_PATH $SOFT/rlang/3.4.3/lib/R/include" >> $MODF/general/rlang/3.4.3 \
   && echo "prepend-path OBJC_INCLUDE_PATH $SOFT/rlang/3.4.3/lib/R/include" >> $MODF/general/rlang/3.4.3 \
-  && echo "module load openblas/0.2.19 java/8.0.111" >> $MODF/general/rlang/3.4.3  \
-  && echo "setenv CLFAGS \"-I$SOFT/bzip2/1.0.6/include -I$SOFT/xz/5.2.2/include -I$SOFT/openblas/0.2.19/include\"" >> $MODF/general/rlang/3.4.3  \
-  && echo "setenv LDFLAGS \"-L$SOFT/bzip2/1.0.6/lib -L$SOFT/xz/5.2.2/lib -L$SOFT/openblas/0.2.19/lib\"" >> $MODF/general/rlang/3.4.3 \
+  && echo "module load openblas/0.2.19 jdk/8.0.151" >> $MODF/general/rlang/3.4.3  \
+  && echo "setenv CFLAGS \"-I$SOFT/jdk/8.0.151/include -I$SOFT/bzip2/1.0.6/include -I$SOFT/xz/5.2.2/include -I$SOFT/openblas/0.2.19/include\"" >> $MODF/general/rlang/3.4.3  \
+  && echo "setenv LDFLAGS \"-L$SOFT/jdk/8.0.151/lib -L$SOFT/bzip2/1.0.6/lib -L$SOFT/xz/5.2.2/lib -L$SOFT/openblas/0.2.19/lib\"" >> $MODF/general/rlang/3.4.3 \
   && mv $SOFT/rlang/3.4.3/lib/R/lib/libRblas.so $SOFT/rlang/3.4.3/lib/R/lib/old_libRblas.so \
   && ln -s $SOFT/openblas/0.2.19/lib/libopenblas.so $SOFT/rlang/3.4.3/lib/R/lib/libRblas.so'
 
