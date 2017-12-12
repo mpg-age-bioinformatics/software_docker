@@ -194,11 +194,22 @@ xz/5.2.2(default)
 
 * **v1.1.1**
 
-  Added `pkg-config libfreetype6-dev libpng-dev liblmdb-dev`
+  Added `pkg-config libfreetype6-dev libpng-dev liblmdb-dev libmariadb-client-lgpl-dev`
 
   Added `quast/4.6.0`
 
   Added `blast/2.7.1`
+
+  Added `primer3/2.4.0`
+
+  Added `trimmomatic/0.36`
+
+  Added `rlang/3.4.3`
+
+  Fixed `python/2.7.13`
+
+  Fixed `rlang/3.3.2`
+
 
 ## Shifter
 
