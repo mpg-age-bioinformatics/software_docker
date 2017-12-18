@@ -210,6 +210,10 @@ xz/5.2.2(default)
 
   Fixed `rlang/3.3.2`
 
+* **v1.1.2**
+
+  Added `stringtie/1.3.1`
+
 
 ## Shifter
 
