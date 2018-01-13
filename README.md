@@ -214,6 +214,13 @@ xz/5.2.2(default)
 
   Added `stringtie/1.3.1`
 
+* **v1.1.3**
+
+  Added `libtbb2 libtbb-dev`
+
+  Added `flexbar/3.0.3`
+
+  Added `bowtie/1.2.2`
 
 ## Shifter
 
