@@ -8,7 +8,7 @@
 
 [Versioning/Tags](#versioningtags)
 
-[Shifter](#shifter)
+[Shifter/Singularity](#shiftersingularity)
 
 [Contributing](#contributing)
 
@@ -20,9 +20,9 @@ Software is versioned by making use of *Environment Modules*.
 
 Additionally to the standard bioinformatics tools, there is also a *Jupyter* and *RStudio server*  installation.  
 
-The *Jupyter* installation comes with *Python 2*, *Python 3*, *R*, and *ruby* kernels ready to go.
+The *Jupyter* installation comes with *Python 2*, *Python 3*, and *R* kernels ready to go.
 
-The container is available from the [docker store](https://store.docker.com/community/images/mpgagebioinformatics/bioinformatics_software).
+The container is available from the [docker hub](https://hub.docker.com/r/mpgagebioinformatics/bioinformatics_software).
 
 ## Usage
 * Create a folder to map to the container's user home folder
@@ -81,7 +81,40 @@ For stopping the server use:
 ```
 sudo rstudio-server stop
 ```
-RStudio server is using the module rlang/3.3.2.
+
+----
+
+* X forward
+
+On a Mac install `socat` and `xquartz`:
+```
+brew install socat
+brew install xquartz
+```
+Open Xquartz:
+```
+open -a Xquartz
+```
+Then navigate to XQuartz > Preferences > Security  and tick the box 'Allow connections from network clients'.
+
+Check your ip address:
+```
+IP=$(ifconfig en0 | grep inet | awk '{ print $2 }')
+```
+Start `socat`:
+```
+socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"$DISPLAY\"
+```
+an then start the container by adding the `-e DISPLAY=${IP}:0` argument. 
+
+Complete example call: 
+```
+IP=$(ifconfig en0 | grep inet | awk '{ print $2 }') && \
+socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"$DISPLAY\" & \
+docker run -d -e DISPLAY=${IP}:0 -p 8787:8787 -p 8888:8888 \
+-v ~/bioinf-container:/home/mpiage --name bioinf-container \
+-it mpgagebioinformatics/bioinformatics_software:latest
+```
 
 ----
 * User account
@@ -120,111 +153,40 @@ All images are released with the following tag structure:
 
 **`<major release>.<changed system package>.<changed software module>`**
 
-* **v0.0.1**:
-First release.
+* **v3.0.0**:
+
 ```
----- /modules/modulefiles/bioinformatics ----
-bedtools/2.26.0(default)
-hisat/2.0.4(default)
-spades/3.10.0(default)
-bowtie/2.2.9(default)
-igvtools/2.3.89(default)
-sratoolkit/2.8.1(default)
-bwa/0.7.15(default)
-picard/2.8.1(default)
-star/2.5.2b(default)
-cufflinks/2.2.1(default)
-samtools/1.3.1(default)
-stringtie/1.3.0(default)
-fastqc/0.11.5(default)
-skewer/0.2.2(default)
-tophat/2.1.1(default)
-gatk/3.4.46(default)
-snpeff/4.3.i(default)
-vcftools/0.1.14(default)
----- /modules/modulefiles/general ----
-java/8.0.111(default)
-python/2.7.12(default)
-python/3.6.0
-ruby-install/0.6.1(default)
-jupyterhub/0.7.2(default)
-rlang/3.3.2(default)
-ruby/2.4.0(default)
----- /modules/modulefiles/libs ----
-bzip2/1.0.6(default)
-openblas/0.2.19(default)
-xz/5.2.2(default)
+container:~$ module avail
+------------------------------- /modules/modulefiles/bioinformatics -------------------------------
+bamutil/1.0.14(default)        hisat/2.1.0(default)      samtools/0.1.19            
+bcl2fastq/2.20.0.422(default)  homer/4.11.0(default)     samtools/1.9.0(default)    
+bedtools/2.29.0(default)       igor/1.3.0(default)       segemehl/0.2.0(default)    
+blast/2.9.0(default)           igrec/3.1.1(default)      seqtk/1.3.0(default)       
+bowtie/1.2.3                   iseerna/1.2.2(default)    skewer/0.2.2(default)      
+bowtie/2.3.5(default)          kallisto/0.46.1(default)  snpeff/4.3.t(default)      
+bwa/0.7.17(default)            kenttools/390(default)    spades/3.11.1(default)     
+bwtool/face601(default)        lofreq/2.1.3(default)     sratoolkit/2.9.6(default)  
+cufflinks/2.2.1(default)       meme/5.1.0(default)       star/2.7.3a(default)       
+cytoscape/3.7.2(default)       methpipe/3.4.3(default)   stringtie/2.0.4(default)   
+emboss/6.6.0(default)          mitools/1.5.0(default)    subread/2.0.0(default)     
+epiteome/1.0.0(default)        ngsutils/0.5.9(default)   tophat/2.1.1(default)      
+expat/2.2.9(default)           picard/2.21.4(default)    trimmomatic/0.39(default)  
+fastqc/0.11.8(default)         primer3/2.5.0(default)    vcftools/0.1.16(default)   
+flexbar/3.5.0(default)         quast/5.0.2(default)      vdjtools/1.2.1(default)    
+gatk/4.1.4(default)            rsem/1.3.1(default)       walt/1.1.0(default)        
+
+---------------------------------- /modules/modulefiles/general -----------------------------------
+jdk/13.0.1(default)   jupyterhub/1.0.0(default)  python/2.7.16(default)  rlang/3.6.1(default)  
+jre/8.0.231(default)  perl/5.28.1(default)       python/3.8.0            
+
+------------------------------------ /modules/modulefiles/libs ------------------------------------
+bzip2/1.0.8(default)  imagemagick/7.0.9-7(default)  xz/5.2.4(default)  
+gsl/2.6.0(default)    openblas/0.3.7(default)       
 ```
 
-* **v0.0.2**:
+## Shifter/Singularity
 
-  Improved PS1
-
-  Added `/Dockerfiles` for legacy maintenance of each version Dockerfile
-
-  Added `lofreq/2.1.2(default)`
-
-* **v1.0.0**:
-
-  Moved to debian 9.1.
-
-  Removed ENV HOME from Dockerfile.
-
-  Replaced python 2.7.12 with 2.7.13.
-
-* **v1.0.1**
-
-  Added `gsl/2.4.0`
-
-  Added `methpipe/3.4.3`
-
-  Added `walt/1.0.0`
-
-* **v1.1.0**
-
-  Added `curl libcurl3 libcurl3-dev`
-
-  Added `bwtool/face601`
-
-  Added `perl/5.24.1` (cpanm)
-
-  Added `jdk/8.0.151`
-
-  Added `gatk/4.beta.5`
-
-* **v1.1.1**
-
-  Added `pkg-config libfreetype6-dev libpng-dev liblmdb-dev libmariadb-client-lgpl-dev`
-
-  Added `quast/4.6.0`
-
-  Added `blast/2.7.1`
-
-  Added `primer3/2.4.0`
-
-  Added `trimmomatic/0.36`
-
-  Added `rlang/3.4.3`
-
-  Fixed `python/2.7.13`
-
-  Fixed `rlang/3.3.2`
-
-* **v1.1.2**
-
-  Added `stringtie/1.3.1`
-
-* **v1.1.3**
-
-  Added `libtbb2 libtbb-dev`
-
-  Added `flexbar/3.0.3`
-
-  Added `bowtie/1.2.2`
-
-## Shifter
-
-Shifer users should add the following line to their host `~/.bashrc`:
+Shifer and Singularity users should add the following line to their host `~/.bashrc`:
 
 ```bash
 if [[ -e /home/mpiage/.bashrc ]]; then module purge; unset PYTHONHOME PYTHONUSERBASE PYTHONPATH; source /home/mpiage/.bashrc; fi
@@ -260,3 +222,11 @@ sudo docker run -d -p 8787:8787 -p 8888:8888 \
 sudo docker exec -i -t bioinf-container /bin/bash
 ```
 Push your changes to the repo to github.
+
+Python and perl Modules should be installed by the user with the ```--user``` option.
+If modules are needed for the installation of software on module environment they should be installed inside the package.
+Example:
+```
+  echo "setenv PYTHONUSERBASE $SOFT/package/1.0.0/lib/python2.7" >> $MODF/bioinformatics/quast/4.6.0 && \
+  echo "prepend-path PERL5LIB $SOFT/package/1.0.0/lib/perl5" >> $MODF/bioinformatics/quast/4.6.0
+```
