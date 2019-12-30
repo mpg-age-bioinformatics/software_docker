@@ -143,6 +143,11 @@ RUN cd $SOUR && wget http://sunlab.cpy.cuhk.edu.hk/iSeeRNA/data/iSeeRNA-1.2.2.x8
     -d 1.2.2 && \
     echo "prepend-path PATH $SOFT/iseerna/1.2.2" >> $MODF/bioinformatics/iseerna/1.2.2
 
+# Installing OPENMPI for MEME
+RUN apt-get update && \
+  apt-get install -yq openmpi-bin openmpi-common openssh-client openssh-server libopenmpi3 libopenmpi-dev && \
+  apt-get clean && rm -rf /var/lib/apt/lists/*
+
 # Installing MEME version 5.1.0
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   module load perl && \
@@ -196,7 +201,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   tar -zxvf meme-5.1.0.tar.gz && cd meme-5.1.0 && \     
   cd $SOUR && cd meme-5.1.0 && \
   ./configure --prefix=${SOFT}/meme/5.1.0 --with-python=$SOFT/meme/5.1.0/pypy-5.10.0-linux_x86_64-portable/bin/pypy --with-url=http://meme-suite.org --enable-build-libxml2 --enable-build-libxslt && \
-  make && make test && \
+  make && make test ; \
   cd $SOUR/meme-5.1.0 && make install && \
   newmod.sh \
   -s meme \
