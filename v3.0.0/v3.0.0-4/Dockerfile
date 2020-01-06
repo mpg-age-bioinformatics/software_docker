@@ -209,7 +209,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   -v 5.1.0 \
   -d 5.1.0 && \
   echo "module load perl" >> $MODF/bioinformatics/meme/5.1.0 && \
-  echo "prepend-path PERL5LIB $SOFT/meme/5.1.0/perl/lib/perl5" >> $MODF/bioinformatics/meme/5.1.0' && \
+  echo "prepend-path PERL5LIB $SOFT/meme/5.1.0/lib/perl5" >> $MODF/bioinformatics/meme/5.1.0' && \
   rm -rf ${SOUR}/*
 
 ##########################
