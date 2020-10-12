@@ -43,6 +43,16 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
     echo "setenv LDFLAGS -L$SOFT/openblas/0.3.7/lib" >> $MODF/general/python/3.9.0' && \
     rm -rf ${SOUR}/*
 
+RUN wget https://github.com/openssl/openssl/archive/OpenSSL_1_1_1h.tar.gz && \
+    tar -zxvf OpenSSL_1_1_1h.tar.gz && \
+    cd openssl-OpenSSL_1_1_1h/ && \
+    ./config && \
+    make && \
+    make install && \
+    cd .. && \
+    rm -rf openssl-OpenSSL_1_1_1h
+
+
 RUN apt-get update && \
     apt-get install -yq --no-install-recommends \ 
     libssl-dev \
