@@ -207,9 +207,9 @@ touch Dockerfile
 ```
 Generate the content of the Dockerfile making sure that on the "FROM" you are using the key for latest available version and using the examples from previous Dockerfiles.
 
-Build the image with:
+Build the image:
 ```bash
-sudo docker build .
+docker build -t mpgagebioinformatics/bioinformatics_software:<version_tag>
 ```
 Try the image and test respective changes
 ```bash
@@ -217,11 +217,16 @@ mkdir -p ~/bioinf-container
 
 sudo docker run -d -p 8787:8787 -p 8888:8888 \
 -v ~/bioinf-container:/home/mpiage --name bioinf-container \
--it <image tag>
+-it mpgagebioinformatics/bioinformatics_software:<version_tag>
 
 sudo docker exec -i -t bioinf-container /bin/bash
 ```
-Push your changes to the repo to github.
+Push your changes to the repo on github.
+
+Push you docker image with:
+```bash
+docker push mpgagebioinformatics/bioinformatics_software:<version_tag>
+```
 
 Python and perl Modules should be installed by the user with the ```--user``` option.
 If modules are needed for the installation of software on module environment they should be installed inside the package.
