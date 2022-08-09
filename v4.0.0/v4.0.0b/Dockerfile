@@ -205,7 +205,7 @@ RUN cd $SOUR && \
 ## Libraries required for jupyter R kernel
 RUN echo "install.packages('askpass', repos='http://cran.us.r-project.org')" > $SOUR/askpass.install.R && \
     echo "install.packages('raster', repos='http://r-forge.r-project.org', type='source')" > $SOUR/raster.install.R && \
-    echo "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest'), lib=c('$SOFT/rlang/4.2.1/lib/R/library')  ,repos=c('http://ftp5.gwdg.de/pub/misc/cran/'), dependencies=TRUE )" > $SOUR/dep.install.R && \
+    echo "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest'), lib=c('$SOFT/rlang/4.2.1/lib/R/library')  ,repos=c('http://ftp5.gwdg.de/pub/misc/cran/'), dependencies=TRUE )" > $SOUR/jupyter.install.R && \
     echo "devtools::install_github('IRkernel/IRkernel',lib=c('$SOFT/rlang/4.2.1/lib/R/library')) " >> $SOUR/_jupyter.install.R && \
     echo "IRkernel::installspec(name = 'ir421', displayname = 'R 4.2.1')" > $SOUR/.install.jupyter.R.kernel.4.2.1
 
@@ -218,28 +218,21 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
     $SOFT/rlang/4.2.1/bin/R CMD INSTALL -l $SOFT/rlang/4.2.1/lib/R/library openssl_2.0.1.tar.gz && \
     git clone https://github.com/ropensci/git2r.git && \
     $SOFT/rlang/4.2.1/bin/R CMD INSTALL -l $SOFT/rlang/4.2.1/lib/R/library git2r && \
-    $SOFT/rlang/4.2.1/bin/Rscript $SOUR/dep.install.R && \
-    $SOFT/rlang/4.2.1/bin/Rscript $SOUR/raster.install.R'
-
-#RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
-#    module load jupyterhub && \
-#    module load rlang && \
-#    cd $SOUR && \   
-#    $SOFT/rlang/4.2.1/bin/Rscript $SOUR/jupyter.install.R && \
-#    $SOFT/rlang/4.2.1/bin/Rscript $SOUR/_jupyter.install.R && \
-#    Rscript $SOUR/.install.jupyter.R.kernel.4.2.1 && rm $SOUR/jupyter.install.R $SOUR/_jupyter.install.R $SOUR/.install.jupyter.R.kernel.4.2.1' && \
-#    rm -rf ${SOUR}/*
+    $SOFT/rlang/4.2.1/bin/Rscript $SOUR/jupyter.install.R && \
+    $SOFT/rlang/4.2.1/bin/Rscript $SOUR/_jupyter.install.R && \
+    Rscript $SOUR/.install.jupyter.R.kernel.4.2.1 && rm $SOUR/jupyter.install.R $SOUR/_jupyter.install.R $SOUR/.install.jupyter.R.kernel.4.2.1' && \
+    rm -rf ${SOUR}/*
 ## Finished installation of jupyter R kernel
 
 ## Install rstudio server ##
-#RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
-#    module load python/3.9.13 && \
-#    module load rlang && \
-#    cd ${SOUR} && \
-#    wget https://download1.rstudio.org/desktop/jammy/amd64/rstudio-2022.07.1-554-amd64.deb && \
-#    dpkg -i rstudio-2022.07.1-554-amd64.deb && \
-#    echo "rsession-which-r=$(which R)" >> /etc/rstudio/rserver.conf' && \  
-#    rm -rf ${SOUR}/*
+RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
+    module load python/3.9.13 && \
+    module load rlang && \
+    cd ${SOUR} && \
+    wget https://download1.rstudio.org/desktop/jammy/amd64/rstudio-2022.07.1-554-amd64.deb && \
+    dpkg -i rstudio-2022.07.1-554-amd64.deb && \
+    echo "rsession-which-r=$(which R)" >> /etc/rstudio/rserver.conf' && \  
+    rm -rf ${SOUR}/*
 
 
 
