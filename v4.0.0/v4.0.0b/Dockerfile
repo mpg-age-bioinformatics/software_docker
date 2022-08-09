@@ -224,13 +224,18 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
     rm -rf ${SOUR}/*
 ## Finished installation of jupyter R kernel
 
+RUN apt-get update && \
+apt-get install -yq --no-install-recommends \
+   gdebi-core && \
+   apt-get clean && rm -rf /var/lib/apt/lists/*
+
 ## Install rstudio server ##
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
     module load python/3.9.13 && \
     module load rlang && \
     cd ${SOUR} && \
-    wget https://download1.rstudio.org/desktop/jammy/amd64/rstudio-2022.07.1-554-amd64.deb && \
-    dpkg -i rstudio-2022.07.1-554-amd64.deb && \
+    wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.07.1-554-amd64.deb && \
+    gdebi rstudio-server-2022.07.1-554-amd64.deb && \
     echo "rsession-which-r=$(which R)" >> /etc/rstudio/rserver.conf' && \  
     rm -rf ${SOUR}/*
 
