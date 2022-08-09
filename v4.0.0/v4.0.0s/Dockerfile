@@ -145,6 +145,7 @@ apt-get install -yq --no-install-recommends \
    libbz2-dev \
    libc6 \
    libc6-amd64 \
+   libgdbm-dev \
    libcrypt1 \
    libgcc-s1 \
    gcc-10-base \
