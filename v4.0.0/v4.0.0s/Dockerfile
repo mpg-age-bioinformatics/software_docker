@@ -151,6 +151,7 @@ apt-get install -yq --no-install-recommends \
    tk8.6-dev \
    tklib \
    libgdal-dev \
+   libgdbm-compat-dev \
    libgdbm-dev \
    libcrypt1 \
    libgcc-s1 \
