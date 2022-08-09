@@ -144,6 +144,12 @@ apt-get install -yq --no-install-recommends \
    libpng-dev \
    libbz2-dev \
    libc6 \
+   tcl-dev \
+   tcllib \
+   tk-dev \
+   tk8.6 \
+   tk8.6-dev \
+   tklib \
    libc6-amd64 \
    libgdbm-dev \
    libcrypt1 \
