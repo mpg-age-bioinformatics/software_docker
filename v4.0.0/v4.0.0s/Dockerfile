@@ -150,7 +150,6 @@ apt-get install -yq --no-install-recommends \
    tk8.6 \
    tk8.6-dev \
    tklib \
-   libc6-amd64 \
    libgdbm-dev \
    libcrypt1 \
    libgcc-s1 \
