@@ -226,9 +226,13 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
 
 RUN apt-get update && \
 apt-get install -yq --no-install-recommends \
-   gdebi-core && \
+   gdebi-core \
    python3-apt \
    python3-debian \
+   distro-info-data \
+   libapt-pkg6.0 \
+   python-apt-common \
+   python3 && \
    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ## Install rstudio server ##
