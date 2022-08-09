@@ -241,7 +241,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
     module load rlang && \
     cd ${SOUR} && \
     wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.07.1-554-amd64.deb && \
-    gdebi rstudio-server-2022.07.1-554-amd64.deb && \
+    dpkg -i rstudio-server-2022.07.1-554-amd64.deb && \
     echo "rsession-which-r=$(which R)" >> /etc/rstudio/rserver.conf' && \  
     rm -rf ${SOUR}/*
 
