@@ -280,16 +280,16 @@ RUN cd $SOUR && wget https://github.com/CSB5/lofreq/raw/master/dist/lofreq_star-
 
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   module load jdk && \
-  mkdir -p $SOFT/cytoscape/3.7.2 && \
-  cd $SOFT/cytoscape/3.7.2 && wget  https://github.com/cytoscape/cytoscape/releases/download/3.7.2/Cytoscape_3_7_2_unix.sh && \
-  bash Cytoscape_3_7_2_unix.sh -q && \
+  mkdir -p $SOFT/cytoscape/3.9.1 && \
+  cd $SOFT/cytoscape/3.9.1 && wget  https://github.com/cytoscape/cytoscape/releases/download/3.9.1/Cytoscape_3_9_1_unix.sh && \
+  bash Cytoscape_3_9_1_unix.sh -q && \
   newmod.sh \
   -s cytoscape \
   -p $MODF/bioinformatics/ \
-  -v 3.7.2 \
-  -d 3.7.2 && \
-  echo "module load jdk" >> $MODF/bioinformatics/cytoscape/3.7.2  && \
-  echo "prepend-path PATH /usr/local/Cytoscape_v3.7.2" >> $MODF/bioinformatics/cytoscape/3.7.2' && \
+  -v 3.9.1 \
+  -d 3.9.1 && \
+  echo "module load jdk" >> $MODF/bioinformatics/cytoscape/3.9.1  && \
+  echo "prepend-path PATH /usr/local/Cytoscape_v3.9.1" >> $MODF/bioinformatics/cytoscape/3.9.1' && \
   rm -rf ${SOUR}/*
 
 ##########################
@@ -300,9 +300,3 @@ RUN mkdir -p /Dockerfiles/v4.0.0-1
 COPY Dockerfile /Dockerfiles/v4.0.0-1/
 
 USER $NB_USER
-
-
-
-
-
-
