@@ -254,7 +254,7 @@ RUN mkdir -p $SOFT/gatk/4.2.6.1/bin && \
 RUN cd $SOUR && wget https://github.com/CSB5/lofreq/raw/master/dist/lofreq_star-2.1.5_linux-x86-64.tgz && \
   mkdir -p $SOFT/lofreq/2.1.5 && \
   tar xfvz lofreq_star-2.1.5_linux-x86-64.tgz && \
-  mv lofreq_star-2.1.5/bin $SOFT/lofreq/2.1.5/ && \
+  mv lofreq_star-2.1.5_linux-x86-64/bin $SOFT/lofreq/2.1.5/ && \
   newmod.sh \
   -s lofreq \
   -p $MODF/bioinformatics/ \
