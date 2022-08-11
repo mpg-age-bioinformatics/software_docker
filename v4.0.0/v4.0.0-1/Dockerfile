@@ -111,21 +111,6 @@ RUN cd $SOUR && \
   -d 2.2.1 && \
   rm -rf ${SOUR}/*
 
-# bwa
-RUN cd $SOUR && \
-  wget https://github.com/lh3/bwa/archive/v0.7.17.tar.gz && \
-  tar -zxvf v0.7.17.tar.gz && \
-  cd bwa-0.7.17 && \
-  make && \
-  mkdir -p $SOFT/bwa/0.7.17/bin && \
-  cp -r * $SOFT/bwa/0.7.17/bin && \
-  newmod.sh \
-  -s bwa \
-  -p $MODF/bioinformatics/ \
-  -v 0.7.17 \
-  -d 0.7.17 && \
-  rm -rf ${SOUR}/*
-
 # tophat
 RUN cd $SOUR && \ 
   wget https://ccb.jhu.edu/software/tophat/downloads/tophat-2.1.1.Linux_x86_64.tar.gz && \
@@ -276,6 +261,21 @@ RUN cd $SOUR && wget https://github.com/CSB5/lofreq/raw/master/dist/lofreq_star-
   -p $MODF/bioinformatics/ \
   -v 2.1.5 \
   -d 2.1.5  && \
+  rm -rf ${SOUR}/*
+
+# bwa
+RUN cd $SOUR && \
+  wget https://github.com/lh3/bwa/archive/v0.7.16a.tar.gz && \
+  tar -zxvf v0.7.16a.tar.gz && \
+  cd bwa-0.7.16a && \
+  make && \
+  mkdir -p $SOFT/bwa/0.7.16a/bin && \
+  cp -r * $SOFT/bwa/0.7.16a/bin && \
+  newmod.sh \
+  -s bwa \
+  -p $MODF/bioinformatics/ \
+  -v 0.7.16a \
+  -d 0.7.16a && \
   rm -rf ${SOUR}/*
 
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \

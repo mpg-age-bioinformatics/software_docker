@@ -1,7 +1,7 @@
 # Copyright (c) Bioinformatics Core Facility of the Max Planck Institute for Biology of Ageing.
 # Distributed under the terms of the Modified BSD License.
 
-FROM mpgagebioinformatics/bioinformatics_software:v3.0.0-1
+FROM mpgagebioinformatics/bioinformatics_software:v4.0.0-1
 
 LABEL maintainer "bioinformatics@age.mpg.de"
 
@@ -13,67 +13,67 @@ USER root
 
 # Installing QUAST
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
-  module load python/3.8.0 && \
+  module load python/3.9.13 && \
   module load perl && \
-  mkdir -p $SOFT/quast/5.0.2/bin && \
-  export PYTHONUSERBASE=$SOFT/quast/5.0.2/ && \
+  mkdir -p $SOFT/quast/5.2.0/bin && \
+  export PYTHONUSERBASE=$SOFT/quast/5.2.0/ && \
   pip3 install future --user && \
   pip3 install qutils --user && \
   pip3 install matplotlib --user && \
-  cpanm Time::HiRes -l $SOFT/quast/5.0.2/ && \
-  export PERL5LIB=$SOFT/quast/5.0.2/lib/perl5:$PERL5LIB && \
+  cpanm Time::HiRes -l $SOFT/quast/5.2.0/ && \
+  export PERL5LIB=$SOFT/quast/5.2.0/lib/perl5:$PERL5LIB && \
   cd $SOUR && \
-  wget https://downloads.sourceforge.net/project/quast/quast-5.0.2.tar.gz && \
-  tar -xzf quast-5.0.2.tar.gz && \
-  cd quast-5.0.2 && \
+  wget https://downloads.sourceforge.net/project/quast/quast-5.2.0.tar.gz && \
+  tar -xzf quast-5.2.0.tar.gz && \
+  cd quast-5.2.0 && \
   python3 setup.py install --user && \
-  cp -r * $SOFT/quast/5.0.2/bin/ && \
+  cp -r * $SOFT/quast/5.2.0/bin/ && \
   newmod.sh \
   -s quast \
   -p $MODF/bioinformatics/ \
-  -v 5.0.2 \
-  -d 5.0.2 && \
-  echo "module load perl python/3.8.0" && \
-  echo "setenv PYTHONUSERBASE $SOFT/quast/5.0.2/lib/python3.8" >> $MODF/bioinformatics/quast/5.0.2 && \
-  echo "prepend-path PERL5LIB $SOFT/quast/5.0.2/lib/perl5" >> $MODF/bioinformatics/quast/5.0.2 && \
-  echo "module load perl python" >> $MODF/bioinformatics/quast/5.0.2' && \
+  -v 5.2.0 \
+  -d 5.2.0 && \
+  echo "module load perl python/3.9.13" && \
+  echo "setenv PYTHONUSERBASE $SOFT/quast/5.2.0/lib/python3.8" >> $MODF/bioinformatics/quast/5.2.0 && \
+  echo "prepend-path PERL5LIB $SOFT/quast/5.2.0/lib/perl5" >> $MODF/bioinformatics/quast/5.2.0 && \
+  echo "module load perl python" >> $MODF/bioinformatics/quast/5.2.0' && \
   rm -rf ${SOUR}/*
 
 # Installing BLAST+
-RUN mkdir -p $SOFT/blast/2.9.0 && \
+RUN mkdir -p $SOFT/blast/2.13.0 && \
   cd $SOUR && \
-  wget -O d.tar.gz ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-2.9.0+-x64-linux.tar.gz && \
-  mv d.tar.gz ncbi-blast-2.9.0+-x64-linux.tar.gz && \
-  tar -xzf ncbi-blast-2.9.0+-x64-linux.tar.gz && \
-  cd ncbi-blast-2.9.0+ && \
-  cp -r * $SOFT/blast/2.9.0 && \
-  chmod 775 $SOFT/blast/2.9.0/bin/* && \
+  wget -O d.tar.gz ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-2.13.0+-x64-linux.tar.gz && \
+  mv d.tar.gz ncbi-blast-2.13.0+-x64-linux.tar.gz && \
+  tar -xzf ncbi-blast-2.13.0+-x64-linux.tar.gz && \
+  cd ncbi-blast-2.13.0+ && \
+  cp -r * $SOFT/blast/2.13.0 && \
+  chmod 775 $SOFT/blast/2.13.0/bin/* && \
   newmod.sh \
   -s blast \
   -p $MODF/bioinformatics/ \
-  -v 2.9.0 \
-  -d 2.9.0 && \
+  -v 2.13.0 \
+  -d 2.13.0 && \
   rm -rf ${SOUR}/*
 
 # Installing primer3 
-RUN mkdir -p $SOFT/primer3/2.5.0/bin && \
+RUN mkdir -p $SOFT/primer3/2.6.1/bin && \
   cd $SOUR && \
-  wget https://github.com/primer3-org/primer3/archive/v2.5.0.tar.gz && \
-  tar -xzf v2.5.0.tar.gz && \
-  cd primer3-2.5.0/src && \
+  wget https://github.com/primer3-org/primer3/archive/v2.6.1.tar.gz && \
+  tar -xzf v2.6.1.tar.gz && \
+  cd primer3-2.6.1/src && \
   make all && \
-  cp -r * $SOFT/primer3/2.5.0/bin && \
+  cp -r * $SOFT/primer3/2.6.1/bin && \
   newmod.sh \
   -s primer3 \
   -p $MODF/bioinformatics/ \
-  -v 2.5.0 \
-  -d 2.5.0 && \
+  -v 2.6.1 \
+  -d 2.6.1 && \
   rm -rf ${SOUR}/*
 
 # Installing trimmomatic
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   mkdir -p $SOFT/trimmomatic/0.39/bin && \
-  module load jre && \
+  module load jdk && \
   cd $SOUR && \ 
   wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip && \
   unzip Trimmomatic-0.39.zip && \
@@ -92,19 +92,19 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
 # methpipe
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   module load gsl && \
-  cd $SOUR && wget http://smithlabresearch.org/downloads/methpipe-3.4.3.tar.bz2 && \
-  mkdir -p $SOFT/methpipe/3.4.3 && \
-  tar -jxvf methpipe-3.4.3.tar.bz2 && \
-  cd methpipe-3.4.3 && \
+  cd $SOUR && wget http://smithlabresearch.org/downloads/methpipe-5.0.0.tar.gz && \
+  mkdir -p $SOFT/methpipe/5.0.0 && \
+  tar -jxvf methpipe-5.0.0.tar.bz2 && \
+  cd methpipe-5.0.0 && \
   make all && \
   make install && \
-  cp -r *  $SOFT/methpipe/3.4.3/ && \
+  cp -r *  $SOFT/methpipe/5.0.0/ && \
   newmod.sh \
   -s methpipe \
   -p $MODF/bioinformatics/ \
-  -v 3.4.3 \
-  -d 3.4.3 && \
-  echo "module load gsl" >> $MODF/bioinformatics/methpipe/3.4.3' && \
+  -v 5.0.0 \
+  -d 5.0.0 && \
+  echo "module load gsl" >> $MODF/bioinformatics/methpipe/5.0.0' && \
   rm -rf ${SOUR}/*
 
 # walt
@@ -180,16 +180,16 @@ RUN cd $SOUR && \
 
 # igor v2.0.0
 RUN cd $SOUR && \
-    wget https://github.com/qmarcou/IGoR/releases/download/1.3.0/igor_1-3-0.zip && \
-    unzip igor_1-3-0.zip && \
-    mkdir -p $SOFT/igor/1.3.0/share/igor/ && \
-    cd igor_1-3-0 && \
-    ./configure --prefix=$SOFT/igor/1.3.0 && make && make install && \
+    wget https://github.com/qmarcou/IGoR/releases/download/1.4.0/igor_1-4-0.zip && \
+    unzip igor_1-4-0.zip && \
+    mkdir -p $SOFT/igor/1.4.0/share/igor/ && \
+    cd igor_1-4-0 && \
+    ./configure --prefix=$SOFT/igor/1.4.0 && make && make install && \
     newmod.sh \
     -s igor \
     -p $MODF/bioinformatics/ \
-    -v 1.3.0 \
-    -d 1.3.0 && \
+    -v 1.4.0 \
+    -d 1.4.0 && \
     rm -rf ${SOUR}/*
 
 # mitools v2.0.0
@@ -224,39 +224,39 @@ RUN cd $SOUR && \
 
 # subread
 RUN cd $SOUR && \
-    wget https://downloads.sourceforge.net/project/subread/subread-2.0.0/subread-2.0.0-Linux-x86_64.tar.gz && \
-    tar -zxvf subread-2.0.0-Linux-x86_64.tar.gz && \
-    cd subread-2.0.0-Linux-x86_64 && \
-    mkdir -p $SOFT/subread/2.0.0/bin && \
-    cp -r bin/utilities/* $SOFT/subread/2.0.0/bin && \
-    cp -r * $SOFT/subread/2.0.0 && \
+    wget https://downloads.sourceforge.net/project/subread/subread-2.0.3/subread-2.0.3-Linux-x86_64.tar.gz && \
+    tar -zxvf subread-2.0.3-Linux-x86_64.tar.gz && \
+    cd subread-2.0.3-Linux-x86_64 && \
+    mkdir -p $SOFT/subread/2.0.3/bin && \
+    cp -r bin/utilities/* $SOFT/subread/2.0.3/bin && \
+    cp -r * $SOFT/subread/2.0.3 && \
     newmod.sh \
     -s subread \
     -p $MODF/bioinformatics/ \
-    -v 2.0.0 && \
+    -v 2.0.3 && \
     rm -rf ${SOUR}/*
 
 # Installing samtools version 0.1.10 needed for epiTEome v2.0.0
 RUN cd $SOUR && \
-    wget http://sourceforge.net/projects/samtools/files/samtools/0.1.19/samtools-0.1.19.tar.bz2/download && \
-    mv download samtools-0.1.19.tar.bz2 && \
-    tar -jxvf samtools-0.1.19.tar.bz2 && \
-    cd samtools-0.1.19 && \
+    wget http://sourceforge.net/projects/samtools/files/samtools/1.15.1/samtools-1.15.1.tar.bz2/download && \
+    mv download samtools-1.15.1.tar.bz2 && \
+    tar -jxvf samtools-1.15.1.tar.bz2 && \
+    cd samtools-1.15.1 && \
     sed -i 's/-g -Wall -O2/-g -Wall -O2 -fPIC/g' Makefile && \
-    mkdir -p $SOFT/samtools/0.1.19/bin && \
-    make && cp samtools bcftools/bcftools misc/*.pl misc/*.java misc/maq2sam-long misc/maq2sam-short misc/md5fa misc/md5sum-lite misc/*.py misc/wgsim $SOFT/samtools/0.1.19/bin && \
+    mkdir -p $SOFT/samtools/1.15.1/bin && \
+    make && cp samtools bcftools/bcftools misc/*.pl misc/*.java misc/maq2sam-long misc/maq2sam-short misc/md5fa misc/md5sum-lite misc/*.py misc/wgsim $SOFT/samtools/1.15.1/bin && \
     newmod.sh \
     -s samtools \
     -p $MODF/bioinformatics/ \
-    -v 0.1.19 && \
+    -v 1.15.1 && \
     rm -rf ${SOUR}/*
 
 ##########################
 #### this part to end ####
 ##########################
 
-RUN mkdir -p /Dockerfiles/v3.0.0-2
-COPY Dockerfile /Dockerfiles/v3.0.0-2/
+RUN mkdir -p /Dockerfiles/v4.0.0-2
+COPY Dockerfile /Dockerfiles/v4.0.0-2/
 
 USER $NB_USER
 

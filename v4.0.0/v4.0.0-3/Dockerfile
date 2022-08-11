@@ -1,7 +1,7 @@
 # Copyright (c) Bioinformatics Core Facility of the Max Planck Institute for Biology of Ageing.
 # Distributed under the terms of the Modified BSD License.
 
-FROM mpgagebioinformatics/bioinformatics_software:v3.0.0-2
+FROM mpgagebioinformatics/bioinformatics_software:v4.0.0-2
 
 LABEL maintainer "bioinformatics@age.mpg.de"
 
@@ -14,27 +14,27 @@ USER root
 # Install emboss version 6.6.0 v2.0.0
 RUN cd $SOUR && \
     mkdir emboss && cd emboss && \
-    wget https://zlib.net/zlib-1.2.11.tar.gz && \
+    wget https://zlib.net/zlib-1.2.12.tar.gz && \
     wget ftp://ftp-osl.osuosl.org/pub/libpng/src/libpng16/libpng-1.6.34.tar.gz && \
-    wget https://github.com/libgd/libgd/releases/download/gd-2.2.4/libgd-2.2.4.tar.gz && \
+    wget https://github.com/libgd/libgd/releases/download/gd-2.3.3/libgd-2.3.3.tar.gz && \
     wget http://www.clustal.org/download/current/clustalw-2.1-linux-x86_64-libcppstatic.tar.gz && \
-    wget https://github.com/primer3-org/primer3/archive/v2.5.0.tar.gz && \
-    wget https://downloads.sourceforge.net/project/primer3/primer3/1.1.3/primer3-1.1.3.tar.gz && \
+    wget https://github.com/primer3-org/primer3/archive/v2.6.1.tar.gz && \
+    wget https://downloads.sourceforge.net/project/primer3/primer3/1.1.4/primer3-1.1.4.tar.gz && \
     wget ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-6.6.0.tar.gz && \
-    tar xfvz zlib-1.2.11.tar.gz && \
+    tar xfvz zlib-1.2.12.tar.gz && \
     tar xfvz libpng-1.6.34.tar.gz && \
-    tar xfvz libgd-2.2.4.tar.gz && \
+    tar xfvz libgd-2.3.3.tar.gz && \
     tar xfvz clustalw-2.1-linux-x86_64-libcppstatic.tar.gz && \
-    tar xfvz v2.5.0.tar.gz && \
+    tar xfvz v2.6.1.tar.gz && \
     tar xfvz EMBOSS-6.6.0.tar.gz && \
-    tar xvfz primer3-1.1.3.tar.gz && \
+    tar xvfz primer3-1.1.4.tar.gz && \
     mkdir -p $SOFT/emboss/6.6.0/bin && \
-    cd zlib-1.2.11 && ./configure --prefix=$SOFT/emboss/6.6.0 --eprefix=$SOFT/emboss/6.6.0 && make install && \
+    cd zlib-1.2.12 && ./configure --prefix=$SOFT/emboss/6.6.0 --eprefix=$SOFT/emboss/6.6.0 && make install && \
     cd ../libpng-1.6.34 && ./configure --prefix=$SOFT/emboss/6.6.0 && make check && make install && \
-    cd ../libgd-2.2.4 && ./configure --prefix=$SOFT/emboss/6.6.0 --with-zlib=$SOFT/emboss/6.6.0 --with-png=$SOFT/emboss/6.6.0 && make install && \
+    cd ../libgd-2.3.3 && ./configure --prefix=$SOFT/emboss/6.6.0 --with-zlib=$SOFT/emboss/6.6.0 --with-png=$SOFT/emboss/6.6.0 && make install && \
     cd ../clustalw-2.1-linux-x86_64-libcppstatic && cp clustalw2 $SOFT/emboss/6.6.0/bin && \
-    cd ../primer3-2.5.0/src && make all && make test && cp -a primer3_core primer3_config $SOFT/emboss/6.6.0/bin && mv $SOFT/emboss/6.6.0/bin/primer3_core $SOFT/emboss/6.6.0/bin/primer32_core && \
-    cd ../../primer3-1.1.3/src && make all && make test && cp -a primer3_core $SOFT/emboss/6.6.0/bin && \
+    cd ../primer3-2.6.1/src && make all && make test && cp -a primer3_core primer3_config $SOFT/emboss/6.6.0/bin && mv $SOFT/emboss/6.6.0/bin/primer3_core $SOFT/emboss/6.6.0/bin/primer32_core && \
+    cd ../../primer3-1.1.4/src && make all && make test && cp -a primer3_core $SOFT/emboss/6.6.0/bin && \
     cd ../../EMBOSS-6.6.0 && ./configure --disable-shared --with-pngdriver=$SOFT/emboss/6.6.0 --prefix=$SOFT/emboss/6.6.0 && make && make install && \
     newmod.sh \
     -s emboss \
@@ -45,20 +45,20 @@ RUN cd $SOUR && \
     cd $SOUR && tar -zcvf emboss-6.6.0.tar.gz emboss && \
     rm -rf ${SOUR}/*
 
-# Install segemehl version 0.2.0 v2.0.0
+# Install segemehl version 0.3.4 v2.0.0
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
     module load python && \
-    mkdir -p $SOFT/segemehl/0.2.0/bin && \
+    mkdir -p $SOFT/segemehl/0.3.4/bin && \
     cd $SOUR && \
-    wget http://www.bioinf.uni-leipzig.de/Software/segemehl/old/segemehl_0_2_0.tar.gz && \
-    tar -zxvf segemehl_0_2_0.tar.gz && \
-    cd segemehl_0_2_0/segemehl && \
-    make && cp lack.x segemehl.x testrealign.x $SOFT/segemehl/0.2.0/bin && \
+    wget http://www.bioinf.uni-leipzig.de/Software/segemehl/downloads/segemehl-0.3.4.tar.gz && \
+    tar -zxvf segemehl_0_3_4.tar.gz && \
+    cd segemehl_0_3_4/segemehl && \
+    make && cp lack.x segemehl.x testrealign.x $SOFT/segemehl/0.3.4/bin && \
     newmod.sh \
     -s segemehl \
     -p $MODF/bioinformatics/ \
-    -v 0.2.0 \
-    -d 0.2.0' && \
+    -v 0.3.4 \
+    -d 0.3.4' && \
     rm -rf ${SOUR}/*
 
 # Installing ngsutils version 0.5.9 needed for epiTEome v2.0.0
