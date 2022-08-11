@@ -128,8 +128,8 @@ RUN cd $SOUR && \
 # star
 RUN cd $SOUR && \
   wget https://github.com/alexdobin/STAR/archive/refs/tags/2.7.10a_alpha_220601.tar.gz && \
-  tar -xzf 2.7.10a.tar.gz && \
-  cd STAR-2.7.10a && \
+  tar -xzf 2.7.10a_alpha_220601.tar.gz && \
+  cd STAR-2.7.10a_alpha_220601 && \
   mkdir -p $SOFT/star/2.7.10a/bin && \
   cp -r bin/Linux_x86_64_static/* $SOFT/star/2.7.10a/bin && \
   newmod.sh \
