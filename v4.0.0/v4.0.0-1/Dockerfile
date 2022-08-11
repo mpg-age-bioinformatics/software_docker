@@ -267,7 +267,7 @@ RUN cd $SOUR && \
   wget https://github.com/lh3/bwa/archive/v0.7.17.tar.gz && \
   tar -zxvf v0.7.17.tar.gz && \
   cd bwa-0.7.17 && \
-  sed '/CFLAGS=/ s/$/ -fcommon/' Makefile && \
+  sed -i '3s/$/ -fcommon/' Makefile && \
   make && \
   mkdir -p $SOFT/bwa/0.7.17/bin && \
   cp -r * $SOFT/bwa/0.7.17/bin && \
