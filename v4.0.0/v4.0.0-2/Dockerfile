@@ -92,9 +92,9 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
 # methpipe
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   module load gsl && \
-  cd $SOUR && wget http://smithlabresearch.org/downloads/methpipe-5.0.0.tar.bz2 && \
+  cd $SOUR && wget http://smithlabresearch.org/downloads/methpipe-5.0.0.tar.gz && \
   mkdir -p $SOFT/methpipe/5.0.0 && \
-  tar -jxvf methpipe-5.0.0.tar.bz2 && \
+  tar -zxvf methpipe-5.0.0.tar.gz && \
   cd methpipe-5.0.0 && \
   make all && \
   make install && \
