@@ -84,12 +84,12 @@ RUN cd $SOUR && \
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
     module load python perl bedtools segemehl ngsutils && \
     export PERL5LIB="$SOFT/epiteome/1.0.0/lib/perl5:\$PERL5LIB" && \
-    export SAMTOOLS="$SOFT/epiteome/1.0.0/samtools-0.1.19" && \
+    export SAMTOOLS="$SOFT/epiteome/1.0.0/samtools-1.15.1" && \
     mkdir -p $SOFT/epiteome/1.0.0/bin && \
     cd $SOFT/epiteome/1.0.0 && \
-    wget -O samtools-0.1.19.tar.bz2 http://sourceforge.net/projects/samtools/files/samtools/0.1.19/samtools-0.1.19.tar.bz2/download && \
-    tar -jxvf samtools-0.1.19.tar.bz2 && \
-    cd $SOFT/epiteome/1.0.0/samtools-0.1.19 && sed -i '"'"'s/-g -Wall -O2/-g -Wall -O2 -fPIC/g'"'"' Makefile && make && cd ../ && rm -rf samtools-0.1.19.tar.bz2 && \
+    wget -O samtools-1.15.1.tar.bz2 http://sourceforge.net/projects/samtools/files/samtools/1.15.1/samtools-1.15.1.tar.bz2/download && \
+    tar -jxvf samtools-1.15.1.tar.bz2 && \
+    cd $SOFT/epiteome/1.0.0/samtools-1.15.1 && sed -i '"'"'s/-g -Wall -O2/-g -Wall -O2 -fPIC/g'"'"' Makefile && make && cd ../ && rm -rf samtools-1.15.1.tar.bz2 && \
     cd $SOUR && wget http://www.cpan.org/authors/id/M/MI/MIROD/XML-DOM-XPath-0.14.tar.gz && \
     tar -zxvf XML-DOM-XPath-0.14.tar.gz && sed -i '"'"'10s/.*/use utf8;/'"'"' XML-DOM-XPath-0.14/t/test_non_ascii.t && \
     cpanm ./XML-DOM-XPath-0.14 -l $SOFT/epiteome/1.0.0/ && \
@@ -117,7 +117,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
     -p $MODF/bioinformatics/ \
     -v 1.0.0 \
     -d 1.0.0 && \
-    echo "module load python perl ngsutils samtools/0.1.19 bedtools segemehl" >> $MODF/bioinformatics/epiteome/1.0.0 && \
+    echo "module load python perl ngsutils samtools/1.15.1 bedtools segemehl" >> $MODF/bioinformatics/epiteome/1.0.0 && \
     echo "prepend-path PERL5LIB $SOFT/epiteome/1.0.0/lib/perl5" >> $MODF/bioinformatics/epiteome/1.0.0' && \
     rm -rf ${SOUR}/*
 
@@ -125,8 +125,8 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
 #### this part to end ####
 ##########################
 
-RUN mkdir -p /Dockerfiles/v3.0.0-3
-COPY Dockerfile /Dockerfiles/v3.0.0-3/
+RUN mkdir -p /Dockerfiles/v4.0.0-3
+COPY Dockerfile /Dockerfiles/v4.0.0-3/
 
 USER $NB_USER
 

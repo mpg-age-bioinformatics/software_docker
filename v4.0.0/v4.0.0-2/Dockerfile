@@ -236,7 +236,7 @@ RUN cd $SOUR && \
     -v 2.0.3 && \
     rm -rf ${SOUR}/*
 
-# Installing samtools version 0.1.10 needed for epiTEome v2.0.0
+# Installing samtools version 1.15.1 needed for epiTEome v2.0.0
 RUN cd $SOUR && \
     wget http://sourceforge.net/projects/samtools/files/samtools/1.15.1/samtools-1.15.1.tar.bz2/download && \
     mv download samtools-1.15.1.tar.bz2 && \

@@ -265,17 +265,18 @@ RUN cd $SOUR && wget https://github.com/CSB5/lofreq/raw/master/dist/lofreq_star-
 
 # bwa
 RUN cd $SOUR && \
-  wget https://github.com/lh3/bwa/archive/v0.7.16a.tar.gz && \
-  tar -zxvf v0.7.16a.tar.gz && \
-  cd bwa-0.7.16a && \
+  wget https://github.com/lh3/bwa/archive/v0.7.17.tar.gz && \
+  tar -zxvf v0.7.17.tar.gz && \
+  cd bwa-0.7.17 && \
+  sed '/CFLAGS=/ s/$/ -fcommon/' Makefile
   make && \
-  mkdir -p $SOFT/bwa/0.7.16a/bin && \
-  cp -r * $SOFT/bwa/0.7.16a/bin && \
+  mkdir -p $SOFT/bwa/0.7.17/bin && \
+  cp -r * $SOFT/bwa/0.7.17/bin && \
   newmod.sh \
   -s bwa \
   -p $MODF/bioinformatics/ \
-  -v 0.7.16a \
-  -d 0.7.16a && \
+  -v 0.7.17 \
+  -d 0.7.17 && \
   rm -rf ${SOUR}/*
 
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \

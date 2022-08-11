@@ -1,7 +1,7 @@
 # Copyright (c) Bioinformatics Core Facility of the Max Planck Institute for Biology of Ageing.
 # Distributed under the terms of the Modified BSD License.
 
-FROM mpgagebioinformatics/bioinformatics_software:v3.0.0-3
+FROM mpgagebioinformatics/bioinformatics_software:v4.0.0-3
 
 LABEL maintainer "bioinformatics@age.mpg.de"
 
@@ -13,15 +13,15 @@ USER root
 
 # Install expat
 RUN cd $SOUR && \
-    wget http://downloads.sourceforge.net/project/expat/expat/2.2.9/expat-2.2.9.tar.bz2 && \
-    mkdir -p $SOFT/expat/2.2.9/bin && \
-    tar -jxvf expat-2.2.9.tar.bz2 && \
-    cd expat-2.2.9 && ./configure --prefix=$SOFT/expat/2.2.9 && make && make install && \
+    wget http://downloads.sourceforge.net/project/expat/expat/2.4.8/expat-2.4.8.tar.bz2 && \
+    mkdir -p $SOFT/expat/2.4.8/bin && \
+    tar -jxvf expat-2.4.8.tar.bz2 && \
+    cd expat-2.4.8 && ./configure --prefix=$SOFT/expat/2.4.8 && make && make install && \
     newmod.sh \
     -s expat \
     -p $MODF/bioinformatics/ \
-    -v 2.2.9 \
-    -d 2.2.9 && \
+    -v 2.4.8 \
+    -d 2.4.8 && \
     rm -rf ${SOUR}/*
 
 # homer v2.0.0
@@ -38,17 +38,17 @@ RUN cd $SOUR && \
   echo "module load samtools rlang" >> $MODF/bioinformatics/homer/4.10.0 && \
   rm -rf ${SOUR}/*
 
-# Install ImageMagick 7.0.8-3
+# Install ImageMagick 7.1.0-45
 RUN cd $SOUR && \
   wget https://imagemagick.org/download/ImageMagick.tar.gz && \
-  mkdir -p $SOFT/imagemagick/7.0.9-7 && \
+  mkdir -p $SOFT/imagemagick/7.1.0-45 && \
   tar -zxvf ImageMagick.tar.gz && \
-  cd ImageMagick-7.0.9-7 && ./configure --prefix=$SOFT/imagemagick/7.0.9-7 && make && make install && \
+  cd ImageMagick-7.1.0-45 && ./configure --prefix=$SOFT/imagemagick/7.1.0-45 && make && make install && \
   newmod.sh \
   -s imagemagick \
   -p $MODF/libs \
-  -v 7.0.9-7 \
-  -d 7.0.9-7 && \
+  -v 7.1.0-45 \
+  -d 7.1.0-45 && \
   rm -rf ${SOUR}/*
 
 # Install seqtk version 1.3
