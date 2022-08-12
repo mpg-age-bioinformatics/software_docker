@@ -83,55 +83,55 @@ RUN cd $SOUR && \
   -d 2.20.0.422 && \
   rm -rf ${SOUR}/*
 
-# Install rsem version 1.3.1
+# Install rsem version 1.3.3
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   module load rlang && \
-  cd $SOUR && wget -O rsem-v1.3.1.tar.gz https://github.com/deweylab/RSEM/archive/v1.3.1.tar.gz && \ 
-  tar -zxvf rsem-v1.3.1.tar.gz && \
-  mkdir -p $SOFT/rsem/1.3.1 && \
-  mv RSEM-1.3.1 $SOFT/rsem/1.3.1/bin  && \
-  cd $SOFT/rsem/1.3.1/bin && \
+  cd $SOUR && wget -O rsem-v1.3.3.tar.gz https://github.com/deweylab/RSEM/archive/v1.3.3.tar.gz && \ 
+  tar -zxvf rsem-v1.3.3.tar.gz && \
+  mkdir -p $SOFT/rsem/1.3.3 && \
+  mv RSEM-1.3.3 $SOFT/rsem/1.3.3/bin  && \
+  cd $SOFT/rsem/1.3.3/bin && \
   make && make ebseq && \
   newmod.sh \
   -s rsem \
   -p $MODF/bioinformatics/ \
-  -v 1.3.1 \
-  -d 1.3.1 && \
-  echo "module load rlang" >> $MODF/bioinformatics/rsem/1.3.1 && \
-  echo "prepend-path R_LIBS_USER $SOFT/rsem/1.3.1/bin/EBSeq" >> $MODF/bioinformatics/rsem/1.3.1' && \
+  -v 1.3.3 \
+  -d 1.3.3 && \
+  echo "module load rlang" >> $MODF/bioinformatics/rsem/1.3.3 && \
+  echo "prepend-path R_LIBS_USER $SOFT/rsem/1.3.3/bin/EBSeq" >> $MODF/bioinformatics/rsem/1.3.3' && \
   rm -rf ${SOUR}/*
 
-# Install bamutil version 1.0.14 v2.0.0
+# Install bamutil version 1.0.15 v2.0.0
 RUN cd $SOUR && \
-  wget -O d.tar.gz https://github.com/statgen/bamUtil/archive/v1.0.14.tar.gz && \
-	mv d.tar.gz bamutil-1.0.14.tar.gz && \
-	mkdir -p $SOFT/bamutil/1.0.14/bin && \
-	tar -zxvf bamutil-1.0.14.tar.gz && \
-	cd bamUtil-1.0.14 && \
+  wget -O d.tar.gz https://github.com/statgen/bamUtil/archive/v1.0.15.tar.gz && \
+	mv d.tar.gz bamutil-1.0.15.tar.gz && \
+	mkdir -p $SOFT/bamutil/1.0.15/bin && \
+	tar -zxvf bamutil-1.0.15.tar.gz && \
+	cd bamUtil-1.0.15 && \
 	make cloneLib && make && \
-	make install INSTALLDIR=$SOFT/bamutil/1.0.14/bin && \
+	make install INSTALLDIR=$SOFT/bamutil/1.0.15/bin && \
   newmod.sh \
   -s bamutil \
   -p $MODF/bioinformatics/ \
-  -v 1.0.14 \
-  -d 1.0.14 && \
+  -v 1.0.15 \
+  -d 1.0.15 && \
   rm -rf ${SOUR}/*
 
 # kallisto; v2.0.6
-RUN cd $SOUR && wget https://github.com/pachterlab/kallisto/releases/download/v0.46.1/kallisto_linux-v0.46.1.tar.gz && \
-    tar -zxvf kallisto_linux-v0.46.1.tar.gz && \
-    mkdir -p $SOFT/kallisto/0.46.1/bin && \
-    mv kallisto/* $SOFT/kallisto/0.46.1/ && \
-    mv $SOFT/kallisto/0.46.1/kallisto $SOFT/kallisto/0.46.1/bin/ && \
+RUN cd $SOUR && wget https://github.com/pachterlab/kallisto/releases/download/v0.48.0/kallisto_linux-v0.48.0.tar.gz && \
+    tar -zxvf kallisto_linux-v0.48.0.tar.gz && \
+    mkdir -p $SOFT/kallisto/0.48.0/bin && \
+    mv kallisto/* $SOFT/kallisto/0.48.0/ && \
+    mv $SOFT/kallisto/0.48.0/kallisto $SOFT/kallisto/0.48.0/bin/ && \
     rm -rf $SOUR/* && \
     newmod.sh \
     -s kallisto \
     -p $MODF/bioinformatics/ \
-    -v 0.46.1 \
-    -d 0.46.1 
+    -v 0.48.0 \
+    -d 0.48.0 
 
 # iSeeRNA
-RUN cd $SOUR && wget http://sunlab.cpy.cuhk.edu.hk/iSeeRNA/data/iSeeRNA-1.2.2.x86_64.tar.gz && \
+RUN cd $SOUR && wget https://mcell.net/iSeeRNA/data/iSeeRNA-1.2.2.x86_64.tar.gz && \
     tar -zxvf iSeeRNA-1.2.2.x86_64.tar.gz && \
     mkdir -p $SOFT/iseerna/1.2.2 && \
     mv $SOUR/iSeeRNA-1.2.2/* $SOFT/iseerna/1.2.2 && \
@@ -216,7 +216,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
 #### this part to end ####
 ##########################
 
-RUN mkdir -p /Dockerfiles/v3.0.0-4
-COPY Dockerfile /Dockerfiles/v3.0.0-4/
+RUN mkdir -p /Dockerfiles/v4.0.0-4
+COPY Dockerfile /Dockerfiles/v4.0.0-4/
 
 USER $NB_USER
