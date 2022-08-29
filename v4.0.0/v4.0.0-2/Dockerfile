@@ -96,7 +96,9 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   mkdir -p $SOFT/methpipe/5.0.0 && \
   tar -zxvf methpipe-5.0.0.tar.gz && \
   cd methpipe-5.0.0 && \
-  make all && \
+  mkdir build && cd build && \
+  ../configure --prefix=$SOFT/methpipe/5.0.0 && \
+  make && \
   make install && \
   cp -r *  $SOFT/methpipe/5.0.0/ && \
   newmod.sh \
