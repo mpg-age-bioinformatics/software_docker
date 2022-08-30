@@ -99,7 +99,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   tar -jxvf htslib-1.16.tar.bz2 && \
   cd htslib-1.16 && \
   ./configure --prefix=$SOFT/methpipe/5.0.0 && make && make install && \
-  cd methpipe-5.0.0 && \
+  cd $SOUR/methpipe-5.0.0 && \
   mkdir build && cd build && \
   ../configure --prefix=$SOFT/methpipe/5.0.0 CPPFLAGS='-I $SOFT/methpipe/5.0.0/include/htslib' LDFLAGS='-L$SOFT/methpipe/5.0.0/lib' && \
   make && \
