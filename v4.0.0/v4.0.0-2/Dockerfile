@@ -93,11 +93,15 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   module load gsl && \
   cd $SOUR && wget http://smithlabresearch.org/downloads/methpipe-5.0.0.tar.gz && \
+  wget https://github.com/samtools/htslib/releases/download/1.16/htslib-1.16.tar.bz2 && \
   mkdir -p $SOFT/methpipe/5.0.0 && \
   tar -zxvf methpipe-5.0.0.tar.gz && \
+  tar -jxvf htslib-1.16.tar.bz2 && \
+  cd htslib-1.16 && \
+  ./configure --prefix=$SOFT/methpipe/5.0.0 && make && make install && \
   cd methpipe-5.0.0 && \
   mkdir build && cd build && \
-  ../configure --prefix=$SOFT/methpipe/5.0.0 && \
+  ../configure --prefix=$SOFT/methpipe/5.0.0 CPPFLAGS='-I $SOFT/methpipe/5.0.0/include/htslib' LDFLAGS='-L$SOFT/methpipe/5.0.0/lib' && \
   make && \
   make install && \
   cp -r *  $SOFT/methpipe/5.0.0/ && \
