@@ -214,19 +214,19 @@ RUN cd $SOUR && \
     -d 3.1.1 && \
     rm -rf ${SOUR}/*
 
-# igor v2.0.0
-RUN cd $SOUR && \
-    wget https://github.com/qmarcou/IGoR/releases/download/1.4.0/igor_1-4-0.zip && \
-    unzip igor_1-4-0.zip && \
-    mkdir -p $SOFT/igor/1.4.0/share/igor/ && \
-    cd igor_1-4-0 && \
-    ./configure --prefix=$SOFT/igor/1.4.0 && make && make install && \
-    newmod.sh \
-    -s igor \
-    -p $MODF/bioinformatics/ \
-    -v 1.4.0 \
-    -d 1.4.0 && \
-    rm -rf ${SOUR}/*
+## igor v2.0.0
+#RUN cd $SOUR && \
+#    wget https://github.com/qmarcou/IGoR/releases/download/1.4.0/igor_1-4-0.zip && \
+#    unzip igor_1-4-0.zip && \
+#    mkdir -p $SOFT/igor/1.4.0/share/igor/ && \
+#    cd igor_1-4-0 && \
+#    ./configure --prefix=$SOFT/igor/1.4.0 && make && make install && \
+#    newmod.sh \
+#    -s igor \
+#    -p $MODF/bioinformatics/ \
+#    -v 1.4.0 \
+#    -d 1.4.0 && \
+#    rm -rf ${SOUR}/*
 
 # mitools v2.0.0
 RUN cd $SOUR && \
@@ -280,7 +280,7 @@ RUN cd $SOUR && \
     cd samtools-1.15.1 && \
     sed -i 's/-g -Wall -O2/-g -Wall -O2 -fPIC/g' Makefile && \
     mkdir -p $SOFT/samtools/1.15.1/bin && \
-    make && cp samtools bcftools/bcftools misc/*.pl misc/*.java misc/maq2sam-long misc/maq2sam-short misc/md5fa misc/md5sum-lite misc/*.py misc/wgsim $SOFT/samtools/1.15.1/bin && \
+    ./configure --prefix=$SOFT/samtools/1.15.1/ && make && make install && \
     newmod.sh \
     -s samtools \
     -p $MODF/bioinformatics/ \
