@@ -89,19 +89,32 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   echo "setenv TRIMMOMATIC $SOFT/trimmomatic/0.39/bin/trimmomatic-0.39.jar" >> $MODF/bioinformatics/trimmomatic/0.39' && \
   rm -rf ${SOUR}/*
 
+# htslib
+RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
+  cd $SOUR && wget https://github.com/samtools/htslib/releases/download/1.16/htslib-1.16.tar.bz2 && \
+  tar -jxvf htslib-1.16.tar.bz2 && \
+  mkdir -p $SOFT/htslib/1.16 && \
+  cd htslib-1.16 && \
+  ./configure --prefix=$SOFT/htslib/1.16 && \
+  make && \
+  make install && \
+  newmod.sh \
+  -s htslib \
+  -p $MODF/libs/ \
+  -v 1.16 \
+  -d 1.16 && \
+  echo "prepend-path LIBRARY_PATH /modules/software/htslib/1.16/lib" >> $MODF/libs/htslib/1.16' && \
+  rm -rf ${SOUR}/*
+
 # methpipe
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   module load gsl && \
+  module load htslib && \
   cd $SOUR && wget http://smithlabresearch.org/downloads/methpipe-5.0.0.tar.gz && \
-  wget https://github.com/samtools/htslib/releases/download/1.16/htslib-1.16.tar.bz2 && \
-  mkdir -p $SOFT/methpipe/5.0.0 && \
   tar -zxvf methpipe-5.0.0.tar.gz && \
-  tar -jxvf htslib-1.16.tar.bz2 && \
-  cd htslib-1.16 && \
-  ./configure --prefix=$SOFT/methpipe/5.0.0 && make && make install && \
   cd $SOUR/methpipe-5.0.0 && \
   mkdir build && cd build && \
-  ../configure --prefix=$SOFT/methpipe/5.0.0 CPPFLAGS='-I /modules/software/methpipe/5.0.0/include' LDFLAGS='-L/modules/software/methpipe/5.0.0/lib' && \
+  CPPFLAGS='-I /modules/software/htslib/1.16/include' LDFLAGS='-L /modules/software/htslib/1.16/lib' ../configure --prefix=$SOFT/methpipe/5.0.0 --srcdir=/modules/sources/methpipe-5.0.0 && \
   make && \
   make install && \
   cp -r ../*  $SOFT/methpipe/5.0.0/ && \
@@ -110,7 +123,8 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   -p $MODF/bioinformatics/ \
   -v 5.0.0 \
   -d 5.0.0 && \
-  echo "module load gsl" >> $MODF/bioinformatics/methpipe/5.0.0' && \
+  echo "module load gsl" >> $MODF/bioinformatics/methpipe/5.0.0 && \
+  echo "module load htslib" >> $MODF/bioinformatics/methpipe/5.0.0' && \
   rm -rf ${SOUR}/*
 
 # abismal
@@ -126,7 +140,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   -s abismal \
   -p $MODF/bioinformatics/ \
   -v 3.0.0 \
-  -d 3.0.0 && \
+  -d 3.0.0' && \
   rm -rf ${SOUR}/*
 
 # walt
