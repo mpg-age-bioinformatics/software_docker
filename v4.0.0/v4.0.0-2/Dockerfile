@@ -101,16 +101,32 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   ./configure --prefix=$SOFT/methpipe/5.0.0 && make && make install && \
   cd $SOUR/methpipe-5.0.0 && \
   mkdir build && cd build && \
-  ../configure --prefix=$SOFT/methpipe/5.0.0 CPPFLAGS='-I $SOFT/methpipe/5.0.0/include/htslib' LDFLAGS='-L$SOFT/methpipe/5.0.0/lib' && \
+  ../configure --prefix=$SOFT/methpipe/5.0.0 CPPFLAGS='-I /modules/software/methpipe/5.0.0/include' LDFLAGS='-L/modules/software/methpipe/5.0.0/lib' && \
   make && \
   make install && \
-  cp -r *  $SOFT/methpipe/5.0.0/ && \
+  cp -r ../*  $SOFT/methpipe/5.0.0/ && \
   newmod.sh \
   -s methpipe \
   -p $MODF/bioinformatics/ \
   -v 5.0.0 \
   -d 5.0.0 && \
   echo "module load gsl" >> $MODF/bioinformatics/methpipe/5.0.0' && \
+  rm -rf ${SOUR}/*
+
+# abismal
+RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
+  cd $SOUR && wget https://github.com/smithlabcode/abismal/releases/download/v3.0.0/abismal-3.0.0.tar.gz && \
+  tar -zxvf abismal-3.0.0.tar.gz && \
+  mkdir -p $SOFT/abismal/3.0.0 && \
+  cd abismal-3.0.0 && \
+  ./configure --prefix=$SOFT/abismal/3.0.0 && \
+  make all && \
+  make install && \
+  newmod.sh \
+  -s abismal \
+  -p $MODF/bioinformatics/ \
+  -v 3.0.0 \
+  -d 3.0.0 && \
   rm -rf ${SOUR}/*
 
 # walt
