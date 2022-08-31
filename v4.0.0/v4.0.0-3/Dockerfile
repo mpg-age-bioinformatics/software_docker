@@ -55,7 +55,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
     tar -zxvf segemehl-0.3.4.tar.gz && \
     cd segemehl-0.3.4 && \
     export PKG_CONFIG_PATH=/modules/software/htslib/1.16/lib/pkgconfig && \
-    make && cp lack.x segemehl.x testrealign.x $SOFT/segemehl/0.3.4/bin && \
+    make all && cp segemehl.x haarz.x $SOFT/segemehl/0.3.4/bin && \
     newmod.sh \
     -s segemehl \
     -p $MODF/bioinformatics/ \
