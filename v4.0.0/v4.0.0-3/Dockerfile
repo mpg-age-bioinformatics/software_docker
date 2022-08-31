@@ -48,11 +48,12 @@ RUN cd $SOUR && \
 # Install segemehl version 0.3.4 v2.0.0
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
     module load python && \
+    module load htslib && \
     mkdir -p $SOFT/segemehl/0.3.4/bin && \
     cd $SOUR && \
     wget http://www.bioinf.uni-leipzig.de/Software/segemehl/downloads/segemehl-0.3.4.tar.gz && \
-    tar -zxvf segemehl_0_3_4.tar.gz && \
-    cd segemehl_0_3_4/segemehl && \
+    tar -zxvf segemehl-0.3.4.tar.gz && \
+    cd segemehl-0.3.4 && \
     make && cp lack.x segemehl.x testrealign.x $SOFT/segemehl/0.3.4/bin && \
     newmod.sh \
     -s segemehl \
