@@ -54,6 +54,7 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
     wget http://www.bioinf.uni-leipzig.de/Software/segemehl/downloads/segemehl-0.3.4.tar.gz && \
     tar -zxvf segemehl-0.3.4.tar.gz && \
     cd segemehl-0.3.4 && \
+    export PKG_CONFIG_PATH=/modules/software/htslib/1.16/lib/pkgconfig && \
     make && cp lack.x segemehl.x testrealign.x $SOFT/segemehl/0.3.4/bin && \
     newmod.sh \
     -s segemehl \
