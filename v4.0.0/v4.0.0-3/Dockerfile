@@ -68,7 +68,7 @@ RUN cd $SOUR && \
     wget https://github.com/ngsutils/ngsutils/archive/ngsutils-0.5.9.tar.gz && \
     mkdir -p $SOFT/ngsutils/0.5.9 && cd $SOFT/ngsutils/0.5.9 && \
     tar xfvz $SOUR/ngsutils-0.5.9.tar.gz --strip-components 1 && \
-    sed -i 's/coverage>=3.5.3/coverage>=3.5.3,<6.0/g' requirements.txt
+    sed -i 's/coverage>=3.5.3/coverage>=3.5.3,<6.0/g' requirements.txt && \
     make all && \
     newmod.sh \
     -s ngsutils \
