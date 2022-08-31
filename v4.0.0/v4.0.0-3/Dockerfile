@@ -27,7 +27,7 @@ RUN cd $SOUR && \
     tar xfvz clustalw-2.1-linux-x86_64-libcppstatic.tar.gz && \
     tar xfvz v2.6.1.tar.gz && \
     tar xfvz EMBOSS-6.6.0.tar.gz && \
-    tar xvfz primer3-1.1.4.tar.gz && \
+    mkdir primer3-1.1.4 && tar xvfz primer3-1.1.4.tar.gz -C primer3-1.1.4 && \
     mkdir -p $SOFT/emboss/6.6.0/bin && \
     cd zlib-1.2.12 && ./configure --prefix=$SOFT/emboss/6.6.0 --eprefix=$SOFT/emboss/6.6.0 && make install && \
     cd ../libpng-1.6.34 && ./configure --prefix=$SOFT/emboss/6.6.0 && make check && make install && \
