@@ -83,16 +83,22 @@ RUN cd $SOUR && \
 # #    curl -T ${SOUR}v1.0.tar.gz ${WEBDAV_URL}epiteome-v1.0.tar.gz --anyauth && \
 # #    rm -rf ${SOUR}/*
 
+RUN apt-get update && \
+apt-get install -yq --no-install-recommends \
+   libbam-dev \
+   libbamtools2.5.1 && \
+   apt-get clean && rm -rf /var/lib/apt/lists/*
+
 # Installing epiTEome v2.0.0
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
     module load python perl bedtools segemehl ngsutils && \
     export PERL5LIB="$SOFT/epiteome/1.0.0/lib/perl5:\$PERL5LIB" && \
-    export SAMTOOLS="$SOFT/epiteome/1.0.0/samtools-1.15.1" && \
+    export SAMTOOLS="$SOFT/epiteome/1.0.0/samtools-0.1.19" && \
     mkdir -p $SOFT/epiteome/1.0.0/bin && \
     cd $SOFT/epiteome/1.0.0 && \
-    wget -O samtools-1.15.1.tar.bz2 http://sourceforge.net/projects/samtools/files/samtools/1.15.1/samtools-1.15.1.tar.bz2/download && \
-    tar -jxvf samtools-1.15.1.tar.bz2 && \
-    cd $SOFT/epiteome/1.0.0/samtools-1.15.1 && sed -i '"'"'s/-g -Wall -O2/-g -Wall -O2 -fPIC/g'"'"' Makefile && make && cd ../ && rm -rf samtools-1.15.1.tar.bz2 && \
+    wget -O samtools-0.1.19.tar.bz2 http://sourceforge.net/projects/samtools/files/samtools/0.1.19/samtools-0.1.19.tar.bz2/download && \
+    tar -jxvf samtools-0.1.19.tar.bz2 && \
+    cd $SOFT/epiteome/1.0.0/samtools-0.1.19 && sed -i '"'"'s/-g -Wall -O2/-g -Wall -O2 -fPIC/g'"'"' Makefile && make && cd ../ && rm -rf samtools-0.1.19.tar.bz2 && \
     cd $SOUR && wget http://www.cpan.org/authors/id/M/MI/MIROD/XML-DOM-XPath-0.14.tar.gz && \
     tar -zxvf XML-DOM-XPath-0.14.tar.gz && sed -i '"'"'10s/.*/use utf8;/'"'"' XML-DOM-XPath-0.14/t/test_non_ascii.t && \
     cpanm ./XML-DOM-XPath-0.14 -l $SOFT/epiteome/1.0.0/ && \
