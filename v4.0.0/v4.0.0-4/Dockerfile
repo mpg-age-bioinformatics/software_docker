@@ -133,7 +133,7 @@ RUN cd $SOUR && wget https://github.com/pachterlab/kallisto/releases/download/v0
     -d 0.48.0 
 
 # iSeeRNA
-RUN cd $SOUR && wget https://mcell.net/iSeeRNA/data/iSeeRNA-1.2.2.x86_64.tar.gz && \
+RUN cd $SOUR && wget --no-check-certificate https://mcell.net/iSeeRNA/data/iSeeRNA-1.2.2.x86_64.tar.gz && \
     tar -zxvf iSeeRNA-1.2.2.x86_64.tar.gz && \
     mkdir -p $SOFT/iseerna/1.2.2 && \
     mv $SOUR/iSeeRNA-1.2.2/* $SOFT/iseerna/1.2.2 && \
