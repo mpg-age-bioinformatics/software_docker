@@ -38,7 +38,7 @@ RUN cd $SOUR && \
   echo "module load samtools rlang" >> $MODF/bioinformatics/homer/4.10.0 && \
   rm -rf ${SOUR}/*
 
-# Install ImageMagick 7.1.0-45
+# Install ImageMagick 7.1.0-47
 RUN cd $SOUR && \
   wget https://imagemagick.org/archive/ImageMagick.tar.gz && \
   mkdir -p $SOFT/imagemagick/7.1.0-47 && \
@@ -64,24 +64,24 @@ RUN cd $SOUR && \
   -d 1.3.0 && \
   rm -rf ${SOUR}/*
 
-# Install bcl2fastq2
-RUN cd $SOUR && \
-  wget -O bcl2fastq2-v2-20-0-tar.zip ftp://webdata2:webdata2@ussd-ftp.illumina.com/downloads/software/bcl2fastq/bcl2fastq2-v2-20-0-tar.zip && \
-	unzip bcl2fastq2-v2-20-0-tar.zip && \
-	tar -zxvf bcl2fastq2-v2.20.0.422-Source.tar.gz && \
-	mv bcl2fastq bcl2fastq2-v2.20.0.422 && \
-	cd bcl2fastq2-v2.20.0.422 && \
-  mkdir -p $SOFT/bcl2fastq/2.20.0.422 && \
-  mkdir -p build && cd build && \
-  CPLUS_INCLUDE_PATH="/usr/include/x86_64-linux-gnu:$CPLUS_INCLUDE_PATH" ../src/configure --prefix=$SOFT/bcl2fastq/2.20.0.422 && \
-  CPLUS_INCLUDE_PATH="/usr/include/x86_64-linux-gnu:$CPLUS_INCLUDE_PATH" make && \
-  CPLUS_INCLUDE_PATH="/usr/include/x86_64-linux-gnu:$CPLUS_INCLUDE_PATH" make install && \
-  newmod.sh \
-  -s bcl2fastq \
-  -p $MODF/bioinformatics/ \
-  -v 2.20.0.422 \
-  -d 2.20.0.422 && \
-  rm -rf ${SOUR}/*
+## Install bcl2fastq2
+#RUN cd $SOUR && \
+#  wget -O bcl2fastq2-v2-20-0-tar.zip ftp://webdata2:webdata2@ussd-ftp.illumina.com/downloads/software/bcl2fastq/bcl2fastq2-v2-20-0-tar.zip && \
+#	unzip bcl2fastq2-v2-20-0-tar.zip && \
+#	tar -zxvf bcl2fastq2-v2.20.0.422-Source.tar.gz && \
+#	mv bcl2fastq bcl2fastq2-v2.20.0.422 && \
+#	cd bcl2fastq2-v2.20.0.422 && \
+#  mkdir -p $SOFT/bcl2fastq/2.20.0.422 && \
+#  mkdir -p build && cd build && \
+#  CPLUS_INCLUDE_PATH="/usr/include/x86_64-linux-gnu:$CPLUS_INCLUDE_PATH" ../src/configure --prefix=$SOFT/bcl2fastq/2.20.0.422 && \
+#  CPLUS_INCLUDE_PATH="/usr/include/x86_64-linux-gnu:$CPLUS_INCLUDE_PATH" make && \
+#  CPLUS_INCLUDE_PATH="/usr/include/x86_64-linux-gnu:$CPLUS_INCLUDE_PATH" make install && \
+#  newmod.sh \
+#  -s bcl2fastq \
+#  -p $MODF/bioinformatics/ \
+#  -v 2.20.0.422 \
+#  -d 2.20.0.422 && \
+#  rm -rf ${SOUR}/*
 
 # Install rsem version 1.3.3
 RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
