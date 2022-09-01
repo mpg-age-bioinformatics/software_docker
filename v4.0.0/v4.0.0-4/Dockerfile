@@ -103,12 +103,14 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
 
 # Install bamutil version 1.0.15 v2.0.0
 RUN cd $SOUR && \
-  wget -O d.tar.gz https://github.com/statgen/bamUtil/archive/v1.0.15.tar.gz && \
-	mv d.tar.gz bamutil-1.0.15.tar.gz && \
+  wget -O bamutil-1.0.15.tar.gz https://github.com/statgen/bamUtil/archive/v1.0.15.tar.gz && \
+  wget -O libStatGen-v1.0.15.tar.gz https://github.com/statgen/libStatGen/archive/refs/tags/v1.0.15.tar.gz && \
 	mkdir -p $SOFT/bamutil/1.0.15/bin && \
 	tar -zxvf bamutil-1.0.15.tar.gz && \
+  tar -zxvf libStatGen-v1.0.15.tar.gz && \
+  mv libStatGen-1.0.15 libStatGen && \
 	cd bamUtil-1.0.15 && \
-	make cloneLib && make && \
+	make && \
 	make install INSTALLDIR=$SOFT/bamutil/1.0.15/bin && \
   newmod.sh \
   -s bamutil \
