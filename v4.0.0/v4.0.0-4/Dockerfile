@@ -40,15 +40,15 @@ RUN cd $SOUR && \
 
 # Install ImageMagick 7.1.0-45
 RUN cd $SOUR && \
-  wget https://imagemagick.org/download/ImageMagick.tar.gz && \
-  mkdir -p $SOFT/imagemagick/7.1.0-45 && \
+  wget https://imagemagick.org/archive/ImageMagick.tar.gz && \
+  mkdir -p $SOFT/imagemagick/7.1.0-47 && \
   tar -zxvf ImageMagick.tar.gz && \
-  cd ImageMagick-7.1.0-45 && ./configure --prefix=$SOFT/imagemagick/7.1.0-45 && make && make install && \
+  cd ImageMagick-7.1.0-47 && ./configure --prefix=$SOFT/imagemagick/7.1.0-47 && make && make install && \
   newmod.sh \
   -s imagemagick \
   -p $MODF/libs \
-  -v 7.1.0-45 \
-  -d 7.1.0-45 && \
+  -v 7.1.0-47 \
+  -d 7.1.0-47 && \
   rm -rf ${SOUR}/*
 
 # Install seqtk version 1.3
