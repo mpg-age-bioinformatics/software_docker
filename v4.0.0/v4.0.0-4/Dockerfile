@@ -155,47 +155,47 @@ RUN /bin/bash -c 'source /etc/profile.d/modules.sh && \
   module load perl && \
   mkdir -p $SOFT/meme/5.4.0/bin && \
   export PERL5LIB="$SOFT/meme/5.4.0/lib/perl5" && \
-  cpanm inc::latest@0.500 -l $SOFT/meme/5.4.0/ && \
-  cpanm Module::Build@0.4222 -l $SOFT/meme/5.4.0/ && \
-  cpanm HTML::Tree@5.06 -l $SOFT/meme/5.4.0/ && \
-  cpanm HTML::Tagset@3.20 -l $SOFT/meme/5.4.0/ && \
-  cpanm File::Slurp::Tiny@0.004 -l $SOFT/meme/5.4.0/ && \
-  cpanm LWP@6.26 -l $SOFT/meme/5.4.0/ && \
-  cpanm CGI@4.38 -l $SOFT/meme/5.4.0/ && \
-  cpanm Log::Report@1.19 -l $SOFT/meme/5.4.0/ && \
-  cpanm XML::Compile@1.56 -l $SOFT/meme/5.4.0/ && \
-  cpanm XML::Compile::Cache@1.05 -l $SOFT/meme/5.4.0/ && \
-  cpanm XML::Compile::Tester@0.90 -l $SOFT/meme/5.4.0/ && \
-  cpanm IPC::Run3@0.048 -l $SOFT/meme/5.4.0/ && \
-  cpanm Probe::Perl@0.03 -l $SOFT/meme/5.4.0/ && \
-  cpanm XML::NamespaceSupport@1.12 -l $SOFT/meme/5.4.0/ && \
-  cpanm XML::SAX::Base@1.09 -l $SOFT/meme/5.4.0/ && \
-  cpanm XML::SAX@0.99 -l $SOFT/meme/5.4.0/ && \
-  cpanm XML::SAX::Expat@0.51 -l $SOFT/meme/5.4.0/ && \
-  cpanm HTML::Parser@3.72 -l $SOFT/meme/5.4.0/ && \
+  cpanm inc::latest -l $SOFT/meme/5.4.0/ && \
+  cpanm Module::Build -l $SOFT/meme/5.4.0/ && \
+  cpanm HTML::Tree -l $SOFT/meme/5.4.0/ && \
+  cpanm HTML::Tagset -l $SOFT/meme/5.4.0/ && \
+  cpanm File::Slurp::Tiny -l $SOFT/meme/5.4.0/ && \
+  cpanm LWP -l $SOFT/meme/5.4.0/ && \
+  cpanm CGI -l $SOFT/meme/5.4.0/ && \
+  cpanm Log::Report -l $SOFT/meme/5.4.0/ && \
+  cpanm XML::Compile -l $SOFT/meme/5.4.0/ && \
+  cpanm XML::Compile::Cache -l $SOFT/meme/5.4.0/ && \
+  cpanm XML::Compile::Tester -l $SOFT/meme/5.4.0/ && \
+  cpanm IPC::Run3 -l $SOFT/meme/5.4.0/ && \
+  cpanm Probe::Perl -l $SOFT/meme/5.4.0/ && \
+  cpanm XML::NamespaceSupport -l $SOFT/meme/5.4.0/ && \
+  cpanm XML::SAX::Base -l $SOFT/meme/5.4.0/ && \
+  cpanm XML::SAX -l $SOFT/meme/5.4.0/ && \
+  cpanm XML::SAX::Expat -l $SOFT/meme/5.4.0/ && \
+  cpanm HTML::Parser -l $SOFT/meme/5.4.0/ && \
   cpanm HTML::PullParser -l $SOFT/meme/5.4.0/ && \
-  cpanm HTML::Template@2.95 -l $SOFT/meme/5.4.0/ && \
-  cpanm JSON@2.90 -l $SOFT/meme/5.4.0/ && \
-  cpanm XML::Compile::SOAP@3.21 -l $SOFT/meme/5.4.0/ && \
+  cpanm HTML::Template -l $SOFT/meme/5.4.0/ && \
+  cpanm JSON -l $SOFT/meme/5.4.0/ && \
+  cpanm XML::Compile::SOAP -l $SOFT/meme/5.4.0/ && \
   cpanm XML::Compile::SOAP11 -l $SOFT/meme/5.4.0/ && \
-  cpanm XML::Compile::WSDL11@3.06 -l $SOFT/meme/5.4.0/ && \
+  cpanm XML::Compile::WSDL11 -l $SOFT/meme/5.4.0/ && \
   cpanm XML::Compile::Transport::SOAPHTTP -l $SOFT/meme/5.4.0/ && \
-  cpanm Log::Log4perl@1.49 -l $SOFT/meme/5.4.0/ && \
-  cpanm Math::CDF@0.1 -l $SOFT/meme/5.4.0/ && \
+  cpanm Log::Log4perl -l $SOFT/meme/5.4.0/ && \
+  cpanm Math::CDF -l $SOFT/meme/5.4.0/ && \
   cpanm Test::Script -l $SOFT/meme/5.4.0/ && \
-  cpanm Test::Simple@1.302085 -l $SOFT/meme/5.4.0/ && \
-  cpanm XML::Simple@2.24 -l $SOFT/meme/5.4.0/ && \
-  cpanm File::Which@1.21 -l $SOFT/meme/5.4.0/ && \
-  cpanm XML::Parser@2.44 -l $SOFT/meme/5.4.0/ && \
+  cpanm Test::Simple -l $SOFT/meme/5.4.0/ && \
+  cpanm XML::Simple -l $SOFT/meme/5.4.0/ && \
+  cpanm File::Which -l $SOFT/meme/5.4.0/ && \
+  cpanm XML::Parser -l $SOFT/meme/5.4.0/ && \
   cpanm XML::Parser::Expat -l $SOFT/meme/5.4.0/ && \
-  cpanm Date::Format@2.24 -l $SOFT/meme/5.4.0/ && \
-  cpanm Date::Language@1.10 -l $SOFT/meme/5.4.0/ && \
-  cpanm Date::Parse@2.30 -l $SOFT/meme/5.4.0/ && \
-  cpanm Time::Zone@2.24 -l $SOFT/meme/5.4.0/ && \
-  cpanm Devel::GlobalDestruction@0.14 -l $SOFT/meme/5.4.0/ && \
-  cpanm URI@1.71 -l $SOFT/meme/5.4.0/ && \
-  cpanm Net::HTTP@6.17 -l $SOFT/meme/5.4.0/ && \
-  cpanm XML::Compile::SOAP@3.22 -l $SOFT/meme/5.4.0/ && \
+  cpanm Date::Format -l $SOFT/meme/5.4.0/ && \
+  cpanm Date::Language -l $SOFT/meme/5.4.0/ && \
+  cpanm Date::Parse -l $SOFT/meme/5.4.0/ && \
+  cpanm Time::Zone -l $SOFT/meme/5.4.0/ && \
+  cpanm Devel::GlobalDestruction -l $SOFT/meme/5.4.0/ && \
+  cpanm URI -l $SOFT/meme/5.4.0/ && \
+  cpanm Net::HTTP -l $SOFT/meme/5.4.0/ && \
+  cpanm XML::Compile::SOAP -l $SOFT/meme/5.4.0/ && \
   cd $SOUR && wget https://github.com/squeaky-pl/portable-pypy/releases/download/pypy3.6-7.2.0/pypy3.6-7.2.0-linux_x86_64-portable.tar.bz2 && \
   tar -jxvf pypy3.6-7.2.0-linux_x86_64-portable.tar.bz2 && \
   cp -a pypy3.6-7.2.0-linux_x86_64-portable $SOFT/meme/5.4.0/ && \
