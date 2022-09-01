@@ -11,10 +11,12 @@ USER root
 #### Bioinformatics tools start here ####
 #########################################
 
+RUN apt-get update && \
+  apt-get install -yq rsync && \
+  apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Installing kentTools version 390
 RUN mkdir -p $SOFT/kenttools/435/bin && \
-    apt-get update && apt-get install rsync && \
     cd $SOFT/kenttools/435/bin/ && \
     rsync -aP rsync://hgdownload.soe.ucsc.edu/genome/admin/exe/linux.x86_64/ ./ && \
     chmod -R +x ./* && \
