@@ -27,7 +27,7 @@ jobs:
         cd software_docker
         APP_VERSION=$(ls -d v*.*.* | sort -V | tail -n 1)
         cd ${APP_VERSION}
-        docker buildx build --platform linux/amd64 -t mpgagebioinformatics/bioinformatics_software:latest . --push
+        docker buildx build --platform linux/amd64,linux/arm64 -t mpgagebioinformatics/bioinformatics_software:latest . --push
 
     - name: Set Success env
       run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-8)" >> $GITHUB_ENV

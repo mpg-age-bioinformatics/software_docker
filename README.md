@@ -246,11 +246,13 @@ sudo docker run -d -p 8787:8787 -p 8888:8888 \
 
 sudo docker exec -i -t bioinf-container /bin/bash
 ```
-Push your changes to the repo on github.
+Push your changes to the repo on github (it will push a docker image with the latest tag).
 
-Push you docker image with:
+Add the new version tag (e.g. v1.2.3) to push you docker image with the version tag:
 ```bash
-docker push mpgagebioinformatics/bioinformatics_software:<version_tag>
+git tag -e -a <version tag> HEAD
+git push
+git push origin --tags
 ```
 
 Python and perl Modules should be installed by the user with the ```--user``` option.
