@@ -1,0 +1,60 @@
+name: Docker Image Push
+
+on:
+  push:
+    tags: [ '*.*.*' ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Remove unnecessary files
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+    
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to Docker Hub
+      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
+      
+    - name: Build and tag Docker image
+      run: |
+        APP_VERSION=${GITHUB_REF#refs/*/}
+        git clone https://github.com/mpg-age-bioinformatics/software_docker.git
+        cd software_docker/${APP_VERSION}
+        docker buildx build --platform linux/amd64 -t mpgagebioinformatics/bioinformatics_software:${APP_VERSION} -t mpgagebioinformatics/bioinformatics_software:latest . --push
+
+    - name: Set Success env
+      run: echo "GITHUB_SHA_SHORT=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+    - name: Slack Success Notification
+      run: | 
+        generate_post_data()
+        {
+          cat << EOF
+        {
+          "text": "Bioinf Software Docker $GITHUB_SHA_SHORT build and push completed"
+        }
+        EOF
+        } 
+        curl -H "Content-Type: application/json" -X POST -d "$(generate_post_data)" ${{ secrets.SLACK_WEBHOOK }}
+
+    - name: Set Failure env
+      if: failure()
+      run: echo "GITHUB_SHA_SHORT=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+    - name: Slack Failure Notification
+      if: failure()
+      run: | 
+        generate_post_data()
+        {
+          cat << EOF
+        {
+          "text": "Bioinf Software Docker $GITHUB_SHA_SHORT build and push FAILED"
+        }
+        EOF
+        } 
+        curl -H "Content-Type: application/json" -X POST -d "$(generate_post_data)" ${{ secrets.SLACK_WEBHOOK }}
