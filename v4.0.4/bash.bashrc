@@ -171,7 +171,4 @@ if [ ${BASH_VERSINFO:-0} -ge 3 ] && [ -r ${MODULESHOME}/init/bash_completion ]; 
    . ${MODULESHOME}/init/bash_completion
 fi
 
-fi
-##
-
 if [[ -e /home/mpiage/.bashrc ]] ; then unset PYTHONHOME PYTHONUSERBASE PYTHONPATH PYTHONSTARTUP; source /home/mpiage/.bashrc; export MODULEPATH=$MODF/general:$MODF/libs:$MODF/bioinformatics ; fi
